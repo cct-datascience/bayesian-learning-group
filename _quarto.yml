@@ -2,20 +2,25 @@ project:
   type: website
 
 website:
-  title: Bayesian learning group
+  title: "Spring 2024 Bayesian Learning Group"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
 
-format:
-  html:
-    theme: cosmo
-    css: styles.css
-    toc: true
-
-editor: visual
-
 execute:
   freeze: auto
+  
+format:
+  html:
+    theme: 
+      - sandstone #feel free to change to a different one https://bootswatch.com/
+      - custom.scss
+    css: https://use.typekit.net/emv3zbo.css #proxima-nova font
+    toc: true
+    
+editor: 
+  markdown:
+    wrap: sentence
+    canonical: true

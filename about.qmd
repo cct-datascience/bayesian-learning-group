@@ -1,9 +1,17 @@
 ---
-title: "About"
+title: "Resources"
 ---
 
-About this site
+# Statistical Rethinking
 
-```{r}
-1 + 1
-```
+## The book
+
+## Video lectures
+
+## R implementations
+
+# R in general
+
+## R and RStudio
+
+## Stan

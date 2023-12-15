@@ -1,11 +1,25 @@
 ---
-title: "BLG"
+title: "Home"
 ---
 
-This is a Quarto website.
+Welcome to the website!
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+## Group objectives
 
-```{r}
-1 + 1
-```
+## Code of Conduct
+
+## Schedule
+
+| Date      | Asynchronous content                | In-session                                                |
+|-----------|-------------------------------------|-----------------------------------------------------------|
+| 1/19/2024 | Ch. 1 The Golem of Prague           | Introductions; group setup and format; software setup     |
+| 2/2/2024  | Ch. 2 Small Worlds and Large Worlds | Work through word problems. Group members demo use cases? |
+| 2/16/2024 | Ch. 3 Sampling the Imaginary        |                                                           |
+| 3/1/2024  |                                     |                                                           |
+| 3/15/2024 |                                     |                                                           |
+| 3/29/2024 |                                     |                                                           |
+| 4/12/2024 |                                     |                                                           |
+| 4/26/2024 |                                     |                                                           |
+|           |                                     |                                                           |
+
+## Useful links
