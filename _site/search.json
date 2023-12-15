@@ -1,16 +1,58 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "objectID": "about.html#r-and-rstudio",
+    "href": "about.html#r-and-rstudio",
+    "title": "Resources",
+    "section": "R and RStudio",
+    "text": "R and RStudio"
+  },
+  {
+    "objectID": "about.html#stan",
+    "href": "about.html#stan",
+    "title": "Resources",
+    "section": "Stan",
+    "text": "Stan"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "BLG",
+    "title": "Home",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Welcome to the website!"
+  },
+  {
+    "objectID": "index.html#group-objectives",
+    "href": "index.html#group-objectives",
+    "title": "Home",
+    "section": "Group objectives",
+    "text": "Group objectives"
+  },
+  {
+    "objectID": "index.html#code-of-conduct",
+    "href": "index.html#code-of-conduct",
+    "title": "Home",
+    "section": "Code of Conduct",
+    "text": "Code of Conduct"
+  },
+  {
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "Home",
+    "section": "Schedule",
+    "text": "Schedule\n\n\n\n\n\n\n\n\nDate\nAsynchronous content\nIn-session\n\n\n\n\n1/19/2024\nCh. 1 The Golem of Prague\nIntroductions; group setup and format; software setup\n\n\n2/2/2024\nCh. 2 Small Worlds and Large Worlds\nWork through word problems. Group members demo use cases?\n\n\n2/16/2024\nCh. 3 Sampling the Imaginary\n\n\n\n3/1/2024\n\n\n\n\n3/15/2024\n\n\n\n\n3/29/2024\n\n\n\n\n4/12/2024\n\n\n\n\n4/26/2024"
+  },
+  {
+    "objectID": "index.html#useful-links",
+    "href": "index.html#useful-links",
+    "title": "Home",
+    "section": "Useful links",
+    "text": "Useful links"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
   }
 ]
