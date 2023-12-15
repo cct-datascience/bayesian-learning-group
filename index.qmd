@@ -1,5 +1,5 @@
 ---
-title: "bayesian-learning-group"
+title: "BLG"
 ---
 
 This is a Quarto website.

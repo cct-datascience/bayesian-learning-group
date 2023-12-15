@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "bayesian-learning-group"
+  title: Bayesian learning group
   navbar:
     left:
       - href: index.qmd
@@ -17,3 +17,5 @@ format:
 
 editor: visual
 
+execute:
+  freeze: auto
