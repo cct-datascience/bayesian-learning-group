@@ -6,12 +6,29 @@ title: "Resources"
 
 ## The book
 
+The 2020 edition is available as an eBook through the UA library.
+[Permalink here.](https://arizona-primo.hosted.exlibrisgroup.com/permalink/f/1h28lag/TN_cdi_safari_books_v2_9781482253481)
+
+The 2018 ([permalink here](https://arizona-primo.hosted.exlibrisgroup.com/permalink/f/1h28lag/TN_cdi_safari_books_v2_9781482253481)) and 2016 ([permalink here](https://arizona-primo.hosted.exlibrisgroup.com/permalink/f/1h28lag/TN_cdi_safari_books_v2_9781482253481)) editions are also available.
+The chapters differ slightly.
+We will be using the 2020 edition.
+
 ## Video lectures
+
+[Here is the playlist of McElreath's 2023 lectures](https://www.youtube.com/watch?v=FdnMWdICdRs&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus).
+
+## Homework exercises
+
+[McElreath has posted problem sets corresponding to the lectures above](https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework).
 
 ## R implementations
 
-# R in general
+### `rethinking` 
 
-## R and RStudio
+[McElreath's rethinking package](https://github.com/rmcelreath/rethinking/).
 
-## Stan
+### `brms`
+
+[This bookdown book](https://bookdown.org/content/4857/) works through the examples and problem questions in McElreath's book using `brms`.
+
+[Here's](https://paul-buerkner.github.io/brms/) a link to the `brms` package.
