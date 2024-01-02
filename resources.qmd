@@ -23,7 +23,7 @@ We will be using the 2020 edition.
 
 ## R implementations
 
-### `rethinking` 
+### `rethinking`
 
 [McElreath's rethinking package](https://github.com/rmcelreath/rethinking/).
 

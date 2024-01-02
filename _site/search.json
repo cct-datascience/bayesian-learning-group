@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "about.html#r-and-rstudio",
-    "href": "about.html#r-and-rstudio",
-    "title": "Resources",
-    "section": "R and RStudio",
-    "text": "R and RStudio"
-  },
-  {
-    "objectID": "about.html#stan",
-    "href": "about.html#stan",
-    "title": "Resources",
-    "section": "Stan",
-    "text": "Stan"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
@@ -25,34 +11,62 @@
     "href": "index.html#group-objectives",
     "title": "Home",
     "section": "Group objectives",
-    "text": "Group objectives"
+    "text": "Group objectives\n\nBecome experts in Bayesian statistics in a semester! Or, at least, absorb the philosophy and conceptual underpinnings of a Bayesian approach, and learn to build and interpret Bayesian models using modern software packages.\nSupport each other in this quest. Collectively we have a diversity of research interests, backgrounds in statistics and programming, and objectives for the semester. We will share our knowledge and our curiousity, and we will welcome questions, experiments, and intellectual risk-taking. We will collectively commit to maintaining a safe and welcoming environment for all (see the Code of Conduct, below)."
+  },
+  {
+    "objectID": "index.html#learning-group-structure",
+    "href": "index.html#learning-group-structure",
+    "title": "Home",
+    "section": "Learning group structure",
+    "text": "Learning group structure\n\nOur objective is to provide structure and support for each other as we work through the Statistical Rethinking material and translate the concepts and tools we learn to our own work.\nBetween sessions, we will all read the current book chapter and/or watch the current video lectures. No need to both read and watch - we suggest picking your favorite modality and setting aside an hour or two in the “off week” between meetings to absorb the content.\nIn-session, we’ll have a quick discussion reminding ourselves of the content, and then spend most of our time helping each other work through examples and use cases from your own work (if you have them).\nWe will encourage you to keep a digital notebook of your progress as a GitHub repository that you can refer back to later. We’ll also curate resources as a group for future reference (and in case anyone misses a session and wants to catch up).\nThe structure and format of this learning group is ultimately what we make it! Suggestions and meta-brainstorming are welcome."
   },
   {
     "objectID": "index.html#code-of-conduct",
     "href": "index.html#code-of-conduct",
     "title": "Home",
     "section": "Code of Conduct",
-    "text": "Code of Conduct"
+    "text": "Code of Conduct\n\nOur group’s mission is to enable scientists. This means treating people with respect and responding in a polite and helpful way.\nOur group is committed to ensuring a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.\nExamples of unacceptable behavior by members, collaborators, and contributors include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.\n\nRead our full code of conduct and please report any violations or concerns to the course instructors or to Kristina Riemer (kristinariemer@arizona.edu)."
   },
   {
     "objectID": "index.html#schedule",
     "href": "index.html#schedule",
     "title": "Home",
     "section": "Schedule",
-    "text": "Schedule\n\n\n\n\n\n\n\n\nDate\nAsynchronous content\nIn-session\n\n\n\n\n1/19/2024\nCh. 1 The Golem of Prague\nIntroductions; group setup and format; software setup\n\n\n2/2/2024\nCh. 2 Small Worlds and Large Worlds\nWork through word problems. Group members demo use cases?\n\n\n2/16/2024\nCh. 3 Sampling the Imaginary\n\n\n\n3/1/2024\n\n\n\n\n3/15/2024\n\n\n\n\n3/29/2024\n\n\n\n\n4/12/2024\n\n\n\n\n4/26/2024"
-  },
-  {
-    "objectID": "index.html#useful-links",
-    "href": "index.html#useful-links",
-    "title": "Home",
-    "section": "Useful links",
-    "text": "Useful links"
+    "text": "Schedule\n\n\n\nDate\nAsynchronous content\n(we suggest reading OR watching)\nIn-session\nLeader\n\n\n\n\n1/19/2024\n\nCh. 1 The Golem of Prague\nLecture 1: Science before statistics\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nDiscuss the drawing of owls\n\nJessica, Renata\n\n\n2/2/2024\nTime change: Meet from 11-1 instead of 12-2!\n\nCh. 2 Small Worlds and Large Worlds\nCh. 3 Sampling the Imaginary\nLecture 2: The Garden of Forking Data\n\n\nCode up Garden of Forking Data example\nChallenge problems here!\nExercises in brms book sections 2 and 3\n\nJessica, Renata\n\n\n2/16/2024\n\nCh. 4 Linear Models\nLecture 3: Geocentric Models (skip to 19:00 if you are familiar with Gaussian distributions)\nLecture 4: Lines and Curves\n\n\nChallenge problems from McElreath’s course here\nExercises in brms book\nCheck pacing and set rest of schedule\n\n\n\n\n3/1/2024\n\n\n\n\n\n3/15/2024\n\n\n\n\n\n3/29/2024\n\n\n\n\n\n4/12/2024\n\n\n\n\n\n4/26/2024"
   },
   {
     "objectID": "resources.html",
     "href": "resources.html",
-    "title": "About",
+    "title": "Resources",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) and 2016 (permalink here) editions are also available. The chapters differ slightly. We will be using the 2020 edition.\n\n\n\nHere is the playlist of McElreath’s 2023 lectures.\n\n\n\nMcElreath has posted problem sets corresponding to the lectures above.\n\n\n\n\n\nMcElreath’s rethinking package.\n\n\n\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package."
+  },
+  {
+    "objectID": "resources.html#the-book",
+    "href": "resources.html#the-book",
+    "title": "Resources",
+    "section": "",
+    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) and 2016 (permalink here) editions are also available. The chapters differ slightly. We will be using the 2020 edition."
+  },
+  {
+    "objectID": "resources.html#video-lectures",
+    "href": "resources.html#video-lectures",
+    "title": "Resources",
+    "section": "",
+    "text": "Here is the playlist of McElreath’s 2023 lectures."
+  },
+  {
+    "objectID": "resources.html#homework-exercises",
+    "href": "resources.html#homework-exercises",
+    "title": "Resources",
+    "section": "",
+    "text": "McElreath has posted problem sets corresponding to the lectures above."
+  },
+  {
+    "objectID": "resources.html#r-implementations",
+    "href": "resources.html#r-implementations",
+    "title": "Resources",
+    "section": "",
+    "text": "McElreath’s rethinking package.\n\n\n\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package."
   }
 ]
