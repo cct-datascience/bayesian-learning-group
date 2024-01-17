@@ -27,6 +27,12 @@ We will be using the 2020 edition.
 
 [McElreath's rethinking package](https://github.com/rmcelreath/rethinking/).
 
+To install `rethinking`, you will first need to install [`cmdstanr`](https://mc-stan.org/cmdstanr/).
+Follow the instructions [here](https://mc-stan.org/cmdstanr/).
+Note that if you do not have CmdStan and a C++ toolchain installed, you'll need to install those as well.
+There are instructions [here](https://mc-stan.org/cmdstanr/).
+This can take a while!
+
 ### `brms`
 
 [This bookdown book](https://bookdown.org/content/4857/) works through the examples and problem questions in McElreath's book using `brms`.
