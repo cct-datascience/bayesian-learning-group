@@ -38,3 +38,7 @@ This can take a while!
 [This bookdown book](https://bookdown.org/content/4857/) works through the examples and problem questions in McElreath's book using `brms`.
 
 [Here's](https://paul-buerkner.github.io/brms/) a link to the `brms` package.
+
+### `rstan`
+
+[Here](https://vincentarelbundock.github.io/rethinking2/) is an implementation in R and stan.
