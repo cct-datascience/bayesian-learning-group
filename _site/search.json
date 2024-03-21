@@ -32,21 +32,21 @@
     "href": "index.html#schedule",
     "title": "Home",
     "section": "Schedule",
-    "text": "Schedule\n\n\n\nDate\nAsynchronous content\n(we suggest reading OR watching)\nIn-session\nLeader\n\n\n\n\n1/19/2024\n\nCh. 1 The Golem of Prague\nLecture 1: Science before statistics\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nDiscuss the drawing of owls\n\nJessica, Renata\n\n\n2/2/2024\nTime change: Meet from 11-1 instead of 12-2!\n\nCh. 2 Small Worlds and Large Worlds\nCh. 3 Sampling the Imaginary\nLecture 2: The Garden of Forking Data\n\n\nCode up Garden of Forking Data example\nChallenge problems here!\nExercises in brms book sections 2 and 3\n\nJessica, Renata\n\n\n2/16/2024\n\nCh. 4 Linear Models\nLecture 3: Geocentric Models (skip to 19:00 if you are familiar with Gaussian distributions)\nLecture 4: Lines and Curves\n\n\nChallenge problems from McElreath’s course here\nExercises in brms book\nCheck pacing and set rest of schedule\n\n\n\n\n3/1/2024\n\n\n\n\n\n3/15/2024\n\n\n\n\n\n3/29/2024\n\n\n\n\n\n4/12/2024\n\n\n\n\n\n4/26/2024"
+    "text": "Schedule\n\n\n\nDate\nAsynchronous content\n(we suggest reading OR watching)\nIn-session\nLeader\n\n\n\n\n1/19/2024\n\nCh. 1 The Golem of Prague\nLecture 1: Science before statistics\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nDiscuss the drawing of owls\n\nJessica, Renata\n\n\n2/2/2024\nTime change: Meet from 11-1 instead of 12-2!\n\nCh. 2 Small Worlds and Large Worlds\nCh. 3 Sampling the Imaginary\nLecture 2: The Garden of Forking Data\n\n\nCode up Garden of Forking Data example\nChallenge problems here!\nExercises in brms book sections 2 and 3\n\nJessica, Renata\n\n\n2/16/2024\n\nCh. 4 Linear Models\nLecture 3: Geocentric Models (skip to 19:00 if you are familiar with Gaussian distributions)\nLecture 4: Lines and Curves\n\n\nChallenge problems from McElreath’s course here\nExercises in brms book\nCheck pacing and set rest of schedule\n\n\n\n\n3/1/2024\n\nCh. 4 in 2020 edition\n\nEsp. section 4.5.2 Splines\n\n\n\nReview Chapter 4\nProblems on splines and building linear models\nDemo (Jessica)\n\n\n\n\n3/15/2024\n\nCh. 5 Many Variables and Spurious Waffles\n\n\nCh. 5 Problems TBD\nDemo (Val)\n\n\n\n\n3/29/2024\n\nCh. 6 The Haunted DAG and Causal Terror\n\n\nCh 6 Problems TBD\n\n\n\n\n4/12/2024\n\nCh. 7 Ulysses’ Compass\nCh. 8 Conditional Manatees\n\n\nCh. 7-8 Problems TBD\n\n\n\n\n4/26/2024\n\nCh. 9 MCMC\n\n\nCh. 9 Problems\nWrap-up and Planning"
   },
   {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) and 2016 (permalink here) editions are also available. The chapters differ slightly. We will be using the 2020 edition.\n\n\n\nHere is the playlist of McElreath’s 2023 lectures.\n\n\n\nMcElreath has posted problem sets corresponding to the lectures above.\n\n\n\n\n\nMcElreath’s rethinking package.\nTo install rethinking, you will first need to install cmdstanr. Follow the instructions here. Note that if you do not have CmdStan and a C++ toolchain installed, you’ll need to install those as well. There are instructions here. This can take a while!\n\n\n\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package.\n\n\n\nHere is an implementation in R and stan."
+    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) edition is also available. The chapters differ slightly. We will be using the 2020 edition.\n\n\n\nHere is the playlist of McElreath’s 2023 lectures.\n\n\n\nMcElreath has posted problem sets corresponding to the lectures above.\n\n\n\n\n\nMcElreath’s rethinking package.\nTo install rethinking, you will first need to install cmdstanr. Follow the instructions here. Note that if you do not have CmdStan and a C++ toolchain installed, you’ll need to install those as well. There are instructions here. This can take a while!\n\n\n\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package.\n\n\n\nHere is an implementation in R and stan."
   },
   {
     "objectID": "resources.html#the-book",
     "href": "resources.html#the-book",
     "title": "Resources",
     "section": "",
-    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) and 2016 (permalink here) editions are also available. The chapters differ slightly. We will be using the 2020 edition."
+    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) edition is also available. The chapters differ slightly. We will be using the 2020 edition."
   },
   {
     "objectID": "resources.html#video-lectures",
