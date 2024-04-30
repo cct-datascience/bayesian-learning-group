@@ -7,6 +7,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: schedule.qmd
+        text: Summer 2024 Schedule
       - href: resources.qmd
         text: Resources
 
