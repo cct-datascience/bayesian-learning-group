@@ -2,6 +2,18 @@
 title: "Resources"
 ---
 
+# Group links
+
+## HackMD (notes)
+
+[Summer 2024 HackMD](https://hackmd.io/@cct-datascience/S107bkkzC)
+
+[Spring 2024 HackMD](https://hackmd.io/z9Or6dTqRuKKkNHDeDM1cw?view)
+
+## Spring schedule
+
+[Spring schedule](spring2024.qmd)
+
 # Statistical Rethinking
 
 ## The book

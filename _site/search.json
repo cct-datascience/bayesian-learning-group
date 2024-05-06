@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "spring2024.html",
+    "href": "spring2024.html",
+    "title": "Spring 2024 Schedule",
+    "section": "",
+    "text": "See the group HackMD for notes from the Spring series."
+  },
+  {
+    "objectID": "spring2024.html#notes",
+    "href": "spring2024.html#notes",
+    "title": "Spring 2024 Schedule",
+    "section": "",
+    "text": "See the group HackMD for notes from the Spring series."
+  },
+  {
+    "objectID": "spring2024.html#schedule",
+    "href": "spring2024.html#schedule",
+    "title": "Spring 2024 Schedule",
+    "section": "Schedule",
+    "text": "Schedule\n\n\n\nDate\nAsynchronous content\n(we suggest reading OR watching)\nIn-session\nLeader\n\n\n\n\n1/19/2024\n\nCh. 1 The Golem of Prague\nLecture 1: Science before statistics\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nDiscuss the drawing of owls\n\nJessica, Renata\n\n\n2/2/2024\nTime change: Meet from 11-1 instead of 12-2!\n\nCh. 2 Small Worlds and Large Worlds\nCh. 3 Sampling the Imaginary\nLecture 2: The Garden of Forking Data\n\n\nCode up Garden of Forking Data example\nChallenge problems here!\nExercises in brms book sections 2 and 3\n\nJessica, Renata\n\n\n2/16/2024\n\nCh. 4 Linear Models\nLecture 3: Geocentric Models (skip to 19:00 if you are familiar with Gaussian distributions)\nLecture 4: Lines and Curves\n\n\nChallenge problems from McElreath’s course here\nExercises in brms book\nCheck pacing and set rest of schedule\n\n\n\n\n3/1/2024\n\nN/A\n\n\nDemo (Jessica)\n\n\n\n\n3/15/2024\n\nContinue Ch 4.\n\n\nCh. 4\nDemo (Val)\n\n\n\n\n3/29/2024\n\nCh. 5 Many Variables and Spurious Waffles\n\n\n\nCh. 6 The Haunted DAG and Causal Terror\n\n\nCh 6 Problems TBD\n\n\n\n\n4/12/2024\n\nCh. 7 Ulysses’ Compass\nCh. 8 Conditional Manatees\n\n\nCh. 7-8 Problems TBD\n\n\n\n\n4/26/2024\n\nCh. 9 MCMC\n\n\nCh. 9 Problems\nWrap-up and Planning"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
@@ -7,18 +28,32 @@
     "text": "Welcome to the website!"
   },
   {
+    "objectID": "index.html#about-the-learning-group",
+    "href": "index.html#about-the-learning-group",
+    "title": "Home",
+    "section": "About the learning group",
+    "text": "About the learning group\nThe Bayesian Learning Group is an informal learning community organized by the University of Arizona CCT Data Science team. The initial series of the BLG was offered in Spring 2024 by Jessica Guo and Renata Diaz. We are now continuing into Summer 2024!"
+  },
+  {
     "objectID": "index.html#group-objectives",
     "href": "index.html#group-objectives",
     "title": "Home",
     "section": "Group objectives",
-    "text": "Group objectives\n\nBecome experts in Bayesian statistics in a semester! Or, at least, absorb the philosophy and conceptual underpinnings of a Bayesian approach, and learn to build and interpret Bayesian models using modern software packages.\nSupport each other in this quest. Collectively we have a diversity of research interests, backgrounds in statistics and programming, and objectives for the semester. We will share our knowledge and our curiousity, and we will welcome questions, experiments, and intellectual risk-taking. We will collectively commit to maintaining a safe and welcoming environment for all (see the Code of Conduct, below)."
+    "text": "Group objectives\n\nBecome experts in Bayesian statistics! Or, at least, absorb the philosophy and conceptual underpinnings of a Bayesian approach, and learn to build and interpret Bayesian models using modern software packages (mostly brms).\nSupport each other in this quest. Collectively we have a diversity of research interests, backgrounds in statistics and programming, and objectives for the semester. We will share our knowledge and our curiosity, and we will welcome questions, experiments, and intellectual risk-taking. We will collectively commit to maintaining a safe and welcoming environment for all (see the Code of Conduct, below)."
   },
   {
     "objectID": "index.html#learning-group-structure",
     "href": "index.html#learning-group-structure",
     "title": "Home",
     "section": "Learning group structure",
-    "text": "Learning group structure\n\nOur objective is to provide structure and support for each other as we work through the Statistical Rethinking material and translate the concepts and tools we learn to our own work.\nBetween sessions, we will all read the current book chapter and/or watch the current video lectures. No need to both read and watch - we suggest picking your favorite modality and setting aside an hour or two in the “off week” between meetings to absorb the content.\nIn-session, we’ll have a quick discussion reminding ourselves of the content, and then spend most of our time helping each other work through examples and use cases from your own work (if you have them).\nWe will encourage you to keep a digital notebook of your progress as a GitHub repository that you can refer back to later. We’ll also curate resources as a group for future reference (and in case anyone misses a session and wants to catch up).\nThe structure and format of this learning group is ultimately what we make it! Suggestions and meta-brainstorming are welcome."
+    "text": "Learning group structure\n\nThe learning group is somewhat of an experiment and evolves over time.\nFor summer 2024, sessions will focus on working through examples from Richard McElreath’s Statistical Rethinking using brms. You are encouraged to read the corresponding chapters and/or watch the accompanying video lectures in between sessions, but we will try to provide enough background context to make working through the examples a valuable exercise on its own.\nWe will be starting from Chapter 9 (MCMC). Some background in statistics is helpful, but interest is more important! You do not need to have participated in the spring series, or to have attended previous sessions, to join any session throughout the semester.\nWe also welcome model “show-and-tell” (where volunteers talk us through all of the nerdy model details you usually don’t get to talk about in your papers and talks!) and guest speakers throughout the semester."
+  },
+  {
+    "objectID": "index.html#questions",
+    "href": "index.html#questions",
+    "title": "Home",
+    "section": "Questions?",
+    "text": "Questions?\nContact Renata Diaz at renatadiaz@arizona.edu."
   },
   {
     "objectID": "index.html#code-of-conduct",
@@ -32,41 +67,69 @@
     "href": "index.html#schedule",
     "title": "Home",
     "section": "Schedule",
-    "text": "Schedule\n\n\n\nDate\nAsynchronous content\n(we suggest reading OR watching)\nIn-session\nLeader\n\n\n\n\n1/19/2024\n\nCh. 1 The Golem of Prague\nLecture 1: Science before statistics\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nDiscuss the drawing of owls\n\nJessica, Renata\n\n\n2/2/2024\nTime change: Meet from 11-1 instead of 12-2!\n\nCh. 2 Small Worlds and Large Worlds\nCh. 3 Sampling the Imaginary\nLecture 2: The Garden of Forking Data\n\n\nCode up Garden of Forking Data example\nChallenge problems here!\nExercises in brms book sections 2 and 3\n\nJessica, Renata\n\n\n2/16/2024\n\nCh. 4 Linear Models\nLecture 3: Geocentric Models (skip to 19:00 if you are familiar with Gaussian distributions)\nLecture 4: Lines and Curves\n\n\nChallenge problems from McElreath’s course here\nExercises in brms book\nCheck pacing and set rest of schedule\n\n\n\n\n3/1/2024\n\nN/A\n\n\nDemo (Jessica)\n\n\n\n\n3/15/2024\n\nContinue Ch 4.\n\n\nCh. 4\nDemo (Val)\n\n\n\n\n3/29/2024\n\nCh. 5 Many Variables and Spurious Waffles\n\n\n\nCh. 6 The Haunted DAG and Causal Terror\n\n\nCh 6 Problems TBD\n\n\n\n\n4/12/2024\n\nCh. 7 Ulysses’ Compass\nCh. 8 Conditional Manatees\n\n\nCh. 7-8 Problems TBD\n\n\n\n\n4/26/2024\n\nCh. 9 MCMC\n\n\nCh. 9 Problems\nWrap-up and Planning"
+    "text": "Schedule\n\n\n\nWeek Of\nAsynchronous content\n(Optional; we suggest reading OR watching)\nIn-session\n\n\n\n\n5/20/2024\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/3/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 1: Binomial and Poisson regression\n\n\n\n6/17/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 2: Multinomial and categorical regression\n\n\n\n7/1/2024\n\nCh. 12 Monsters and Mixtures\n\n\nMixture models\n\n\n\n7/15/2024\n\nCh. 13 Models with Memory\nLecture\n\n\nMultilevel models\n\n\n\n7/29/2024\n\nNone\n\n\nFloating open session for a guest speaker/model show and tell"
   },
   {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) edition is also available. The chapters differ slightly. We will be using the 2020 edition.\n\n\n\nHere is the playlist of McElreath’s 2023 lectures.\n\n\n\nMcElreath has posted problem sets corresponding to the lectures above.\n\n\n\n\n\nMcElreath’s rethinking package.\nTo install rethinking, you will first need to install cmdstanr. Follow the instructions here. Note that if you do not have CmdStan and a C++ toolchain installed, you’ll need to install those as well. There are instructions here. This can take a while!\n\n\n\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package.\n\n\n\nHere is an implementation in R and stan."
+    "text": "Summer 2024 HackMD\nSpring 2024 HackMD\n\n\n\nSpring schedule"
+  },
+  {
+    "objectID": "resources.html#hackmd-notes",
+    "href": "resources.html#hackmd-notes",
+    "title": "Resources",
+    "section": "",
+    "text": "Summer 2024 HackMD\nSpring 2024 HackMD"
   },
   {
     "objectID": "resources.html#the-book",
     "href": "resources.html#the-book",
     "title": "Resources",
-    "section": "",
-    "text": "The 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) edition is also available. The chapters differ slightly. We will be using the 2020 edition."
+    "section": "The book",
+    "text": "The book\nThe 2020 edition is available as an eBook through the UA library. Permalink here.\nThe 2018 (permalink here) edition is also available. The chapters differ slightly. We will be using the 2020 edition."
   },
   {
     "objectID": "resources.html#video-lectures",
     "href": "resources.html#video-lectures",
     "title": "Resources",
-    "section": "",
-    "text": "Here is the playlist of McElreath’s 2023 lectures."
+    "section": "Video lectures",
+    "text": "Video lectures\nHere is the playlist of McElreath’s 2023 lectures."
   },
   {
     "objectID": "resources.html#homework-exercises",
     "href": "resources.html#homework-exercises",
     "title": "Resources",
-    "section": "",
-    "text": "McElreath has posted problem sets corresponding to the lectures above."
+    "section": "Homework exercises",
+    "text": "Homework exercises\nMcElreath has posted problem sets corresponding to the lectures above."
   },
   {
     "objectID": "resources.html#r-implementations",
     "href": "resources.html#r-implementations",
     "title": "Resources",
+    "section": "R implementations",
+    "text": "R implementations\n\nrethinking\nMcElreath’s rethinking package.\nTo install rethinking, you will first need to install cmdstanr. Follow the instructions here. Note that if you do not have CmdStan and a C++ toolchain installed, you’ll need to install those as well. There are instructions here. This can take a while!\n\n\nbrms\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package.\n\n\nrstan\nHere is an implementation in R and stan."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
     "section": "",
-    "text": "McElreath’s rethinking package.\nTo install rethinking, you will first need to install cmdstanr. Follow the instructions here. Note that if you do not have CmdStan and a C++ toolchain installed, you’ll need to install those as well. There are instructions here. This can take a while!\n\n\n\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package.\n\n\n\nHere is an implementation in R and stan."
+    "text": "Week Of\nAsynchronous content\nIn-session\n\n\n\n\n5/20/2024\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/3/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 1: Binomial and Poisson regression\n\n\n\n6/17/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 2: Multinomial and categorical regression\n\n\n\n7/1/2024\n\nCh. 12 Monsters and Mixtures\n\n\nMixture models\n\n\n\n7/15/2024\n\nCh. 13 Models with Memory\nLecture\n\n\nMultilevel models\n\n\n\n7/29/2024\n\nNone\n\n\nFloating open session for a guest speaker/model show and tell"
+  },
+  {
+    "objectID": "schedule.html#schedule",
+    "href": "schedule.html#schedule",
+    "title": "Schedule",
+    "section": "",
+    "text": "Week Of\nAsynchronous content\n(Optional; we suggest reading OR watching)\nIn-session\n\n\n\n\n5/20/2024\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/3/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 1: Binomial and Poisson regression\n\n\n\n6/17/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 2: Multinomial and categorical regression\n\n\n\n7/1/2024\n\nCh. 12 Monsters and Mixtures\n\n\nMixture models\n\n\n\n7/15/2024\n\nCh. 13 Models with Memory\nLecture\n\n\nMultilevel models\n\n\n\n7/29/2024\n\nNone\n\n\nFloating open session for a guest speaker/model show and tell"
+  },
+  {
+    "objectID": "resources.html#spring-schedule",
+    "href": "resources.html#spring-schedule",
+    "title": "Resources",
+    "section": "",
+    "text": "Spring schedule"
   }
 ]
