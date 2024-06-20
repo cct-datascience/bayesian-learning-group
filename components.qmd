@@ -1,0 +1,206 @@
+---
+title: "Components of a model"
+editor: source
+freeze: true
+---
+
+Based on the book section [4.2. A language for describing models](https://learning.oreilly.com/library/view/statistical-rethinking-2nd/9780429639142/xhtml/06_Contents.xhtml#sec4_2).
+
+## Variables
+
+### Data
+
+Observable things.
+
+### Parameters
+
+Not observable or known.
+
+## "Joint generative model"
+
+We define each variable either in terms of a probability distribution, or in terms of its relationship to the other variables.
+
+Taken together, this system of definitions is what McElreath calls a "joint generative model".
+
+## Penguins example
+
+Let's model `bill_length` for Chinstrap penguins.
+First, we won't use any predictor variables - just looking for the mean.
+
+```{r}
+
+library(palmerpenguins)
+library(dplyr)
+library(ggplot2)
+library(ggdist)
+theme_set(theme_minimal())
+
+penguins <- penguins |>
+  filter(!is.na(sex)) |>
+  filter(species == "Chinstrap") 
+
+ggplot(penguins, aes(bill_depth_mm)) +
+  geom_dotsinterval()
+
+```
+
+### Defining the model
+
+$\text{billdepth}_i \sim N(\mu, \sigma)$
+
+This just says that bill depth is normally distributed with some mean and some standard deviation.
+We can observe bill depth (data), but we don't know the mean or standard deviation (parameters).
+
+For the parameters, we need *priors*.
+
+$\mu \sim N(50, 15)$
+
+This is to say that $\mu$ is some number drawn from a normal distribution centered on 50:
+
+```{r}
+
+data.frame(mu = rnorm(1000, mean = 20, sd = 6)) |>
+  ggplot(aes(x = mu)) +
+  geom_dotsinterval() +
+  ggtitle("Simulations from prior for mu")
+
+```
+
+\$\sigma \sim \text{Uniform}(0, 20)\$
+
+And here we're saying that we figure $sigma$ is potentially uniformly distributed ranging from 0-20.
+Standard deviations have to be positive, and otherwise this is a very broad range.
+
+```{r}
+
+data.frame(sigma = runif(1000, 0, 20)) |>
+  ggplot(aes(x = sigma)) +
+  geom_dotsinterval() +
+  ggtitle("Simulations from prior for sigma")
+
+```
+
+### Exploring the generative model
+
+```{r}
+
+sample_mu <- rnorm(1000, 20, 6)
+sample_sigmas <- runif(1000, 0, 20)
+
+data.frame(simulated_bill_depths = 
+             rnorm(1000, 
+                   sample_mu,
+                   sample_sigmas)) |>
+  ggplot(aes(simulated_bill_depths)) +
+  geom_dotsinterval() +
+  ggtitle("Simlated bill depths from priors")
+```
+
+This is our simulation of expected bill depths *before explicitly taking into account the data* (although we did look at the density plot before specifying the priors).
+
+### Taking into account the data
+
+See [here](https://bookdown.org/content/4857/geocentric-models.html#finding-the-posterior-distribution-with-quap-brm.) for translations of `rethinking` code to `brms`.
+
+```{r, eval = F}
+library(brms)
+
+bill_depth_brm <-
+  brm(
+    family = gaussian,
+    bill_depth_mm ~ 1,
+    data = penguins,
+    prior = c(
+      prior(normal(20, 6), class = Intercept),
+      prior(uniform(0, 20), class = sigma, ub = 20)
+    ),
+    iter = 1000
+  )
+
+```
+
+```{r, eval = F, echo = F}
+
+save(bill_depth_brm, file = "bill_depth_only.RDS")
+```
+
+```{r, eval = T, echo = F}
+library(brms)
+
+load("bill_depth_only.RDS")
+
+```
+
+```{r}
+plot(bill_depth_brm)
+
+```
+
+```{r}
+
+summary(bill_depth_brm)
+
+```
+
+### Exploring the posterior
+
+```{r}
+
+posterior <- as_draws_df(bill_depth_brm)
+
+head(posterior)
+
+```
+
+```{r}
+
+ggplot(posterior, aes(Intercept)) +
+  stat_dotsinterval()
+
+
+ggplot(posterior, aes(sigma)) +
+  stat_dotsinterval()
+```
+
+```{r}
+
+posterior_summary(bill_depth_brm)
+
+```
+
+## Penguins with a predictor
+
+OK, now let's model bill_depth as a function of bill_length.
+
+```{r}
+
+ggplot(penguins, aes(bill_length_mm, 
+                     bill_depth_mm)) +
+  geom_point()
+
+```
+
+### Specifying the model
+
+$\text{billdepth}_i \sim N(\mu, \sigma)$
+
+Here, again, we say that bill depth is normally distributed with some mean and standard deviation.
+
+$\mu_i = \alpha + \beta(\text{billlength}_i = \text{mean}(\text{billlength}))$
+
+This addition makes it into a linear model.
+Instead of estimating $\mu$ from the data, we say that the mean of bill depth varies with bill length as linear function with an intercept $\alpha$ and a slope $\beta$.
+
+$\alpha$ and $\beta$ are now additional parameters that we will estimate and therefore need to set priors for.
+
+$\alpha \sim N(20, 6)$
+
+$\beta \sim N(0, 5)$
+
+$\sigma \sim \text{Uniform}(0, 20)$
+
+### Exploring the generative model
+
+### Fitting the model (with data)
+
+### Exploring the posterior

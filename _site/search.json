@@ -21,55 +21,6 @@
     "text": "Schedule\n\n\n\nDate\nAsynchronous content\n(we suggest reading OR watching)\nIn-session\nLeader\n\n\n\n\n1/19/2024\n\nCh. 1 The Golem of Prague\nLecture 1: Science before statistics\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nDiscuss the drawing of owls\n\nJessica, Renata\n\n\n2/2/2024\nTime change: Meet from 11-1 instead of 12-2!\n\nCh. 2 Small Worlds and Large Worlds\nCh. 3 Sampling the Imaginary\nLecture 2: The Garden of Forking Data\n\n\nCode up Garden of Forking Data example\nChallenge problems here!\nExercises in brms book sections 2 and 3\n\nJessica, Renata\n\n\n2/16/2024\n\nCh. 4 Linear Models\nLecture 3: Geocentric Models (skip to 19:00 if you are familiar with Gaussian distributions)\nLecture 4: Lines and Curves\n\n\nChallenge problems from McElreath’s course here\nExercises in brms book\nCheck pacing and set rest of schedule\n\n\n\n\n3/1/2024\n\nN/A\n\n\nDemo (Jessica)\n\n\n\n\n3/15/2024\n\nContinue Ch 4.\n\n\nCh. 4\nDemo (Val)\n\n\n\n\n3/29/2024\n\nCh. 5 Many Variables and Spurious Waffles\n\n\n\nCh. 6 The Haunted DAG and Causal Terror\n\n\nCh 6 Problems TBD\n\n\n\n\n4/12/2024\n\nCh. 7 Ulysses’ Compass\nCh. 8 Conditional Manatees\n\n\nCh. 7-8 Problems TBD\n\n\n\n\n4/26/2024\n\nCh. 9 MCMC\n\n\nCh. 9 Problems\nWrap-up and Planning"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Home",
-    "section": "",
-    "text": "Welcome to the website!"
-  },
-  {
-    "objectID": "index.html#about-the-learning-group",
-    "href": "index.html#about-the-learning-group",
-    "title": "Home",
-    "section": "About the learning group",
-    "text": "About the learning group\nThe Bayesian Learning Group is an informal learning community organized by the University of Arizona CCT Data Science team. The initial series of the BLG was offered in Spring 2024 by Jessica Guo and Renata Diaz. We are now continuing into Summer 2024!"
-  },
-  {
-    "objectID": "index.html#group-objectives",
-    "href": "index.html#group-objectives",
-    "title": "Home",
-    "section": "Group objectives",
-    "text": "Group objectives\n\nBecome experts in Bayesian statistics! Or, at least, absorb the philosophy and conceptual underpinnings of a Bayesian approach, and learn to build and interpret Bayesian models using modern software packages (mostly brms).\nSupport each other in this quest. Collectively we have a diversity of research interests, backgrounds in statistics and programming, and objectives for the semester. We will share our knowledge and our curiosity, and we will welcome questions, experiments, and intellectual risk-taking. We will collectively commit to maintaining a safe and welcoming environment for all (see the Code of Conduct, below)."
-  },
-  {
-    "objectID": "index.html#learning-group-structure",
-    "href": "index.html#learning-group-structure",
-    "title": "Home",
-    "section": "Learning group structure",
-    "text": "Learning group structure\n\nThe learning group is somewhat of an experiment and evolves over time.\nFor summer 2024, sessions will focus on working through examples from Richard McElreath’s Statistical Rethinking using brms. You are encouraged to read the corresponding chapters and/or watch the accompanying video lectures in between sessions, but we will try to provide enough background context to make working through the examples a valuable exercise on its own.\nWe will be starting from Chapter 9 (MCMC). Some background in statistics is helpful, but interest is more important! You do not need to have participated in the spring series, or to have attended previous sessions, to join any session throughout the semester.\nWe also welcome model “show-and-tell” (where volunteers talk us through all of the nerdy model details you usually don’t get to talk about in your papers and talks!) and guest speakers throughout the semester."
-  },
-  {
-    "objectID": "index.html#questions",
-    "href": "index.html#questions",
-    "title": "Home",
-    "section": "Questions?",
-    "text": "Questions?\nContact Renata Diaz at renatadiaz@arizona.edu."
-  },
-  {
-    "objectID": "index.html#code-of-conduct",
-    "href": "index.html#code-of-conduct",
-    "title": "Home",
-    "section": "Code of Conduct",
-    "text": "Code of Conduct\n\nOur group’s mission is to enable scientists. This means treating people with respect and responding in a polite and helpful way.\nOur group is committed to ensuring a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.\nExamples of unacceptable behavior by members, collaborators, and contributors include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.\n\nRead our full code of conduct and please report any violations or concerns to the course instructors or to Kristina Riemer (kristinariemer@arizona.edu)."
-  },
-  {
-    "objectID": "index.html#schedule",
-    "href": "index.html#schedule",
-    "title": "Home",
-    "section": "Schedule",
-    "text": "Schedule\n\n\n\nWeek Of\nAsynchronous content\n(Optional; we suggest reading OR watching)\nIn-session\n\n\n\n\n5/20/2024\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/3/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 1: Binomial and Poisson regression\n\n\n\n6/17/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 2: Multinomial and categorical regression\n\n\n\n7/1/2024\n\nCh. 12 Monsters and Mixtures\n\n\nMixture models\n\n\n\n7/15/2024\n\nCh. 13 Models with Memory\nLecture\n\n\nMultilevel models\n\n\n\n7/29/2024\n\nNone\n\n\nFloating open session for a guest speaker/model show and tell"
-  },
-  {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
@@ -82,6 +33,13 @@
     "title": "Resources",
     "section": "",
     "text": "Summer 2024 HackMD\nSpring 2024 HackMD"
+  },
+  {
+    "objectID": "resources.html#spring-schedule",
+    "href": "resources.html#spring-schedule",
+    "title": "Resources",
+    "section": "",
+    "text": "Spring schedule"
   },
   {
     "objectID": "resources.html#the-book",
@@ -112,24 +70,87 @@
     "text": "R implementations\n\nrethinking\nMcElreath’s rethinking package.\nTo install rethinking, you will first need to install cmdstanr. Follow the instructions here. Note that if you do not have CmdStan and a C++ toolchain installed, you’ll need to install those as well. There are instructions here. This can take a while!\n\n\nbrms\nThis bookdown book works through the examples and problem questions in McElreath’s book using brms.\nHere’s a link to the brms package.\n\n\nrstan\nHere is an implementation in R and stan."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Welcome to the website!"
+  },
+  {
+    "objectID": "index.html#about-the-learning-group",
+    "href": "index.html#about-the-learning-group",
+    "title": "Home",
+    "section": "About the learning group",
+    "text": "About the learning group\nThe Bayesian Learning Group is an informal learning community organized by the University of Arizona CCT Data Science team. The initial series of the BLG was offered in Spring 2024 by Jessica Guo and Renata Diaz. We are now continuing into Summer 2024!"
+  },
+  {
+    "objectID": "index.html#group-objectives",
+    "href": "index.html#group-objectives",
+    "title": "Home",
+    "section": "Group objectives",
+    "text": "Group objectives\n\nBecome experts in Bayesian statistics! Or, at least, absorb the philosophy and conceptual underpinnings of a Bayesian approach, and learn to build and interpret Bayesian models using modern software packages (mostly brms).\nSupport each other in this quest. Collectively we have a diversity of research interests, backgrounds in statistics and programming, and objectives for the semester. We will share our knowledge and our curiosity, and we will welcome questions, experiments, and intellectual risk-taking. We will collectively commit to maintaining a safe and welcoming environment for all (see the Code of Conduct, below)."
+  },
+  {
+    "objectID": "index.html#learning-group-structure",
+    "href": "index.html#learning-group-structure",
+    "title": "Home",
+    "section": "Learning group structure",
+    "text": "Learning group structure\n\nThe learning group is somewhat of an experiment and evolves over time.\nFor summer 2024, sessions will focus on working through examples from Richard McElreath’s Statistical Rethinking using brms. You are encouraged to read the corresponding chapters and/or watch the accompanying video lectures in between sessions, but we will try to provide enough background context to make working through the examples a valuable exercise on its own.\nWe will be starting from Chapter 9 (MCMC). Some background in statistics is helpful, but interest is more important! You do not need to have participated in the spring series, or to have attended previous sessions, to join any session throughout the semester.\nWe also welcome model “show-and-tell” (where volunteers talk us through all of the nerdy model details you usually don’t get to talk about in your papers and talks!) and guest speakers throughout the semester."
+  },
+  {
+    "objectID": "index.html#code-of-conduct",
+    "href": "index.html#code-of-conduct",
+    "title": "Home",
+    "section": "Code of Conduct",
+    "text": "Code of Conduct\n\nOur group’s mission is to enable scientists. This means treating people with respect and responding in a polite and helpful way.\nOur group is committed to ensuring a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.\nExamples of unacceptable behavior by members, collaborators, and contributors include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.\n\nRead our full code of conduct and please report any violations or concerns to the course instructors or to Kristina Riemer (kristinariemer@arizona.edu)."
+  },
+  {
+    "objectID": "index.html#questions",
+    "href": "index.html#questions",
+    "title": "Home",
+    "section": "Questions?",
+    "text": "Questions?\nContact Renata Diaz at renatadiaz@arizona.edu."
+  },
+  {
     "objectID": "schedule.html",
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "Week Of\nAsynchronous content\nIn-session\n\n\n\n\n5/20/2024\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/3/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 1: Binomial and Poisson regression\n\n\n\n6/17/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 2: Multinomial and categorical regression\n\n\n\n7/1/2024\n\nCh. 12 Monsters and Mixtures\n\n\nMixture models\n\n\n\n7/15/2024\n\nCh. 13 Models with Memory\nLecture\n\n\nMultilevel models\n\n\n\n7/29/2024\n\nNone\n\n\nFloating open session for a guest speaker/model show and tell"
+    "text": "Date\nAsynchronous content\nIn-session\n\n\n\n\n5/24/24\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/7/24\n\nScience Before Statistics\nThe Garden of Forking Data\n\nand/or\n\nGlance over Chapters 1-2.\n\n\nDiscuss the parts of a model: model, data, priors, posterior\n\n\n\n6/21/24\n\nGeocentric models\nLines and Curves\n\nand/or\n\nGlance over Ch. 3-4\n\n\nPractice putting together a model and sampling the posterior\n\n\n\n7/5/24\n\nMCMC\nand/or\nCh. 9 MCMC\n\n\nWorked examples with MCMC\n\n\n\n7/19/24\n\nModeling Events\nCounts and Hidden Confounds\nand/or\nCh. 10\n\n\nGeneralized linear models I\n\n\n\n8/2/24\n\nModeling Events\nCounts and Hidden Confounds\nand/or\nCh. 11\n\n\nGeneralized linear models II"
   },
   {
-    "objectID": "schedule.html#schedule",
-    "href": "schedule.html#schedule",
-    "title": "Schedule",
+    "objectID": "components.html",
+    "href": "components.html",
+    "title": "Components of a model",
     "section": "",
-    "text": "Week Of\nAsynchronous content\n(Optional; we suggest reading OR watching)\nIn-session\n\n\n\n\n5/20/2024\n\nCh. 9 MCMC\nMCMC lecture\n\n\nIntroductions\nGroup setup and format\nSoftware setup\nMCMC examples\n\n\n\n6/3/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 1: Binomial and Poisson regression\n\n\n\n6/17/2024\n\nCh. 10 Big Entropy and the Generalized Linear Model\nCh. 11 God Spiked the Integers\nLecture 1, Lecture 2\n\n\nGeneralized linear models part 2: Multinomial and categorical regression\n\n\n\n7/1/2024\n\nCh. 12 Monsters and Mixtures\n\n\nMixture models\n\n\n\n7/15/2024\n\nCh. 13 Models with Memory\nLecture\n\n\nMultilevel models\n\n\n\n7/29/2024\n\nNone\n\n\nFloating open session for a guest speaker/model show and tell"
+    "text": "Based on the book section 4.2. A language for describing models."
   },
   {
-    "objectID": "resources.html#spring-schedule",
-    "href": "resources.html#spring-schedule",
-    "title": "Resources",
-    "section": "",
-    "text": "Spring schedule"
+    "objectID": "components.html#variables",
+    "href": "components.html#variables",
+    "title": "Components of a model",
+    "section": "Variables",
+    "text": "Variables\n\nData\nObservable things.\n\n\nParameters\nNot observable or known."
+  },
+  {
+    "objectID": "components.html#joint-generative-model",
+    "href": "components.html#joint-generative-model",
+    "title": "Components of a model",
+    "section": "“Joint generative model”",
+    "text": "“Joint generative model”\nWe define each variable either in terms of a probability distribution, or in terms of its relationship to the other variables.\nTaken together, this system of definitions is what McElreath calls a “joint generative model”."
+  },
+  {
+    "objectID": "components.html#penguins-example",
+    "href": "components.html#penguins-example",
+    "title": "Components of a model",
+    "section": "Penguins example",
+    "text": "Penguins example\nLet’s model bill_length for Chinstrap penguins. First, we won’t use any predictor variables - just looking for the mean.\n\nlibrary(palmerpenguins)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(ggplot2)\nlibrary(ggdist)\ntheme_set(theme_minimal())\n\npenguins &lt;- penguins |&gt;\n  filter(!is.na(sex)) |&gt;\n  filter(species == \"Chinstrap\") \n\nggplot(penguins, aes(bill_depth_mm)) +\n  geom_dotsinterval()\n\n\n\n\n\n\n\n\n\nDefining the model\n\\(\\text{billdepth}_i \\sim N(\\mu, \\sigma)\\)\nThis just says that bill depth is normally distributed with some mean and some standard deviation. We can observe bill depth (data), but we don’t know the mean or standard deviation (parameters).\nFor the parameters, we need priors.\n\\(\\mu \\sim N(50, 15)\\)\nThis is to say that \\(\\mu\\) is some number drawn from a normal distribution centered on 50:\n\ndata.frame(mu = rnorm(1000, mean = 20, sd = 6)) |&gt;\n  ggplot(aes(x = mu)) +\n  geom_dotsinterval() +\n  ggtitle(\"Simulations from prior for mu\")\n\n\n\n\n\n\n\n\n$(0, 20)$\nAnd here we’re saying that we figure \\(sigma\\) is potentially uniformly distributed ranging from 0-20. Standard deviations have to be positive, and otherwise this is a very broad range.\n\ndata.frame(sigma = runif(1000, 0, 20)) |&gt;\n  ggplot(aes(x = sigma)) +\n  geom_dotsinterval() +\n  ggtitle(\"Simulations from prior for sigma\")\n\n\n\n\n\n\n\n\n\n\nExploring the generative model\n\nsample_mu &lt;- rnorm(1000, 20, 6)\nsample_sigmas &lt;- runif(1000, 0, 20)\n\ndata.frame(simulated_bill_depths = \n             rnorm(1000, \n                   sample_mu,\n                   sample_sigmas)) |&gt;\n  ggplot(aes(simulated_bill_depths)) +\n  geom_dotsinterval() +\n  ggtitle(\"Simlated bill depths from priors\")\n\n\n\n\n\n\n\n\nThis is our simulation of expected bill depths before explicitly taking into account the data (although we did look at the density plot before specifying the priors).\n\n\nTaking into account the data\nSee here for translations of rethinking code to brms.\n\nlibrary(brms)\n\nbill_depth_brm &lt;-\n  brm(\n    family = gaussian,\n    bill_depth_mm ~ 1,\n    data = penguins,\n    prior = c(\n      prior(normal(20, 6), class = Intercept),\n      prior(uniform(0, 20), class = sigma, ub = 20)\n    ),\n    iter = 1000\n  )\n\n\n\nLoading required package: Rcpp\n\n\nLoading 'brms' package (version 2.21.0). Useful instructions\ncan be found by typing help('brms'). A more detailed introduction\nto the package is available through vignette('brms_overview').\n\n\n\nAttaching package: 'brms'\n\n\nThe following objects are masked from 'package:ggdist':\n\n    dstudent_t, pstudent_t, qstudent_t, rstudent_t\n\n\nThe following object is masked from 'package:stats':\n\n    ar\n\n\n\nplot(bill_depth_brm)\n\n\n\n\n\n\n\n\n\nsummary(bill_depth_brm)\n\n Family: gaussian \n  Links: mu = identity; sigma = identity \nFormula: bill_depth_mm ~ 1 \n   Data: penguins (Number of observations: 68) \n  Draws: 4 chains, each with iter = 1000; warmup = 500; thin = 1;\n         total post-warmup draws = 2000\n\nRegression Coefficients:\n          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nIntercept    18.42      0.14    18.13    18.70 1.00     1390     1244\n\nFurther Distributional Parameters:\n      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsigma     1.16      0.10     0.98     1.36 1.00     1501     1307\n\nDraws were sampled using sampling(NUTS). For each parameter, Bulk_ESS\nand Tail_ESS are effective sample size measures, and Rhat is the potential\nscale reduction factor on split chains (at convergence, Rhat = 1).\n\n\n\n\nExploring the posterior\n\nposterior &lt;- as_draws_df(bill_depth_brm)\n\nhead(posterior)\n\n# A draws_df: 6 iterations, 1 chains, and 5 variables\n  b_Intercept sigma Intercept lprior lp__\n1          19   1.2        19   -5.7 -111\n2          18   1.1        18   -5.7 -111\n3          18   1.1        18   -5.7 -111\n4          18   1.1        18   -5.7 -111\n5          18   1.1        18   -5.7 -111\n6          18   1.0        18   -5.7 -111\n# ... hidden reserved variables {'.chain', '.iteration', '.draw'}\n\n\n\nggplot(posterior, aes(Intercept)) +\n  stat_dotsinterval()\n\n\n\n\n\n\n\nggplot(posterior, aes(sigma)) +\n  stat_dotsinterval()\n\n\n\n\n\n\n\n\n\nposterior_summary(bill_depth_brm)\n\n               Estimate   Est.Error         Q2.5       Q97.5\nb_Intercept   18.421378 0.140472861   18.1294656   18.696755\nsigma          1.155849 0.098822889    0.9816352    1.359573\nIntercept     18.421378 0.140472861   18.1294656   18.696755\nlprior        -5.741316 0.006166867   -5.7550261   -5.730020\nlp__        -111.280959 1.026213063 -114.1671862 -110.321475"
+  },
+  {
+    "objectID": "components.html#penguins-with-a-predictor",
+    "href": "components.html#penguins-with-a-predictor",
+    "title": "Components of a model",
+    "section": "Penguins with a predictor",
+    "text": "Penguins with a predictor\nOK, now let’s model bill_depth as a function of bill_length.\n\nggplot(penguins, aes(bill_length_mm, \n                     bill_depth_mm)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nSpecifying the model\n\\(\\text{billdepth}_i \\sim N(\\mu, \\sigma)\\)\nHere, again, we say that bill depth is normally distributed with some mean and standard deviation.\n\\(\\mu_i = \\alpha + \\beta(\\text{billlength}_i = \\text{mean}(\\text{billlength}))\\)\nThis addition makes it into a linear model. Instead of estimating \\(\\mu\\) from the data, we say that the mean of bill depth varies with bill length as linear function with an intercept \\(\\alpha\\) and a slope \\(\\beta\\).\n\\(\\alpha\\) and \\(\\beta\\) are now additional parameters that we will estimate and therefore need to set priors for.\n\\(\\alpha \\sim N(20, 6)\\)\n\\(\\beta \\sim N(0, 5)\\)\n\\(\\sigma \\sim \\text{Uniform}(0, 20)\\)\n\n\nExploring the generative model\n\n\nFitting the model (with data)\n\n\nExploring the posterior"
   }
 ]
