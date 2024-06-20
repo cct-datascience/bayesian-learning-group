@@ -1,5 +1,40 @@
 [
   {
+    "objectID": "components.html",
+    "href": "components.html",
+    "title": "Components of a model",
+    "section": "",
+    "text": "Based on the book section 4.2. A language for describing models."
+  },
+  {
+    "objectID": "components.html#variables",
+    "href": "components.html#variables",
+    "title": "Components of a model",
+    "section": "Variables",
+    "text": "Variables\n\nData\nObservable things.\n\n\nParameters\nNot observable or known."
+  },
+  {
+    "objectID": "components.html#joint-generative-model",
+    "href": "components.html#joint-generative-model",
+    "title": "Components of a model",
+    "section": "“Joint generative model”",
+    "text": "“Joint generative model”\nWe define each variable either in terms of a probability distribution, or in terms of its relationship to the other variables.\nTaken together, this system of definitions is what McElreath calls a “joint generative model”."
+  },
+  {
+    "objectID": "components.html#penguins-example",
+    "href": "components.html#penguins-example",
+    "title": "Components of a model",
+    "section": "Penguins example",
+    "text": "Penguins example\nLet’s model bill_length for Chinstrap penguins. First, we won’t use any predictor variables - just looking for the mean.\n\nlibrary(palmerpenguins)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(ggplot2)\nlibrary(ggdist)\ntheme_set(theme_minimal())\n\npenguins &lt;- penguins |&gt;\n  filter(!is.na(sex)) |&gt;\n  filter(species == \"Chinstrap\") \n\nggplot(penguins, aes(bill_depth_mm)) +\n  geom_dotsinterval()\n\n\n\n\n\n\n\n\n\nDefining the model\n\\(\\text{billdepth}_i \\sim N(\\mu, \\sigma)\\)\nThis just says that bill depth is normally distributed with some mean and some standard deviation. We can observe bill depth (data), but we don’t know the mean or standard deviation (parameters).\nFor the parameters, we need priors.\n\\(\\mu \\sim N(50, 15)\\)\nThis is to say that \\(\\mu\\) is some number drawn from a normal distribution centered on 50:\n\ndata.frame(mu = rnorm(1000, mean = 20, sd = 6)) |&gt;\n  ggplot(aes(x = mu)) +\n  geom_dotsinterval() +\n  ggtitle(\"Simulations from prior for mu\")\n\n\n\n\n\n\n\n\n$(0, 20)$\nAnd here we’re saying that we figure \\(sigma\\) is potentially uniformly distributed ranging from 0-20. Standard deviations have to be positive, and otherwise this is a very broad range.\n\ndata.frame(sigma = runif(1000, 0, 20)) |&gt;\n  ggplot(aes(x = sigma)) +\n  geom_dotsinterval() +\n  ggtitle(\"Simulations from prior for sigma\")\n\n\n\n\n\n\n\n\n\n\nExploring the generative model\n\nsample_mu &lt;- rnorm(1000, 20, 6)\nsample_sigmas &lt;- runif(1000, 0, 20)\n\ndata.frame(simulated_bill_depths = \n             rnorm(1000, \n                   sample_mu,\n                   sample_sigmas)) |&gt;\n  ggplot(aes(simulated_bill_depths)) +\n  geom_dotsinterval() +\n  ggtitle(\"Simlated bill depths from priors\")\n\n\n\n\n\n\n\n\nThis is our simulation of expected bill depths before explicitly taking into account the data (although we did look at the density plot before specifying the priors).\n\n\nTaking into account the data\nSee here for translations of rethinking code to brms.\n\nlibrary(brms)\n\nbill_depth_brm &lt;-\n  brm(\n    family = gaussian,\n    bill_depth_mm ~ 1,\n    data = penguins,\n    prior = c(\n      prior(normal(20, 6), class = Intercept),\n      prior(uniform(0, 20), class = sigma, ub = 20)\n    ),\n    iter = 1000\n  )\n\n\n\nLoading required package: Rcpp\n\n\nLoading 'brms' package (version 2.21.0). Useful instructions\ncan be found by typing help('brms'). A more detailed introduction\nto the package is available through vignette('brms_overview').\n\n\n\nAttaching package: 'brms'\n\n\nThe following objects are masked from 'package:ggdist':\n\n    dstudent_t, pstudent_t, qstudent_t, rstudent_t\n\n\nThe following object is masked from 'package:stats':\n\n    ar\n\n\n\nplot(bill_depth_brm)\n\n\n\n\n\n\n\n\n\nsummary(bill_depth_brm)\n\n Family: gaussian \n  Links: mu = identity; sigma = identity \nFormula: bill_depth_mm ~ 1 \n   Data: penguins (Number of observations: 68) \n  Draws: 4 chains, each with iter = 1000; warmup = 500; thin = 1;\n         total post-warmup draws = 2000\n\nRegression Coefficients:\n          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nIntercept    18.42      0.14    18.13    18.70 1.00     1390     1244\n\nFurther Distributional Parameters:\n      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsigma     1.16      0.10     0.98     1.36 1.00     1501     1307\n\nDraws were sampled using sampling(NUTS). For each parameter, Bulk_ESS\nand Tail_ESS are effective sample size measures, and Rhat is the potential\nscale reduction factor on split chains (at convergence, Rhat = 1).\n\n\n\n\nExploring the posterior\n\nposterior &lt;- as_draws_df(bill_depth_brm)\n\nhead(posterior)\n\n# A draws_df: 6 iterations, 1 chains, and 5 variables\n  b_Intercept sigma Intercept lprior lp__\n1          19   1.2        19   -5.7 -111\n2          18   1.1        18   -5.7 -111\n3          18   1.1        18   -5.7 -111\n4          18   1.1        18   -5.7 -111\n5          18   1.1        18   -5.7 -111\n6          18   1.0        18   -5.7 -111\n# ... hidden reserved variables {'.chain', '.iteration', '.draw'}\n\n\n\nggplot(posterior, aes(Intercept)) +\n  stat_dotsinterval()\n\n\n\n\n\n\n\nggplot(posterior, aes(sigma)) +\n  stat_dotsinterval()\n\n\n\n\n\n\n\n\n\nposterior_summary(bill_depth_brm)\n\n               Estimate   Est.Error         Q2.5       Q97.5\nb_Intercept   18.421378 0.140472861   18.1294656   18.696755\nsigma          1.155849 0.098822889    0.9816352    1.359573\nIntercept     18.421378 0.140472861   18.1294656   18.696755\nlprior        -5.741316 0.006166867   -5.7550261   -5.730020\nlp__        -111.280959 1.026213063 -114.1671862 -110.321475"
+  },
+  {
+    "objectID": "components.html#penguins-with-a-predictor",
+    "href": "components.html#penguins-with-a-predictor",
+    "title": "Components of a model",
+    "section": "Penguins with a predictor",
+    "text": "Penguins with a predictor\nOK, now let’s model bill_depth as a function of bill_length.\n\nggplot(penguins, aes(bill_length_mm, \n                     bill_depth_mm)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nSpecifying the model\n\\(\\text{billdepth}_i \\sim N(\\mu, \\sigma)\\)\nHere, again, we say that bill depth is normally distributed with some mean and standard deviation.\n\\(\\mu_i = \\alpha + \\beta(\\text{billlength}_i = \\text{mean}(\\text{billlength}))\\)\nThis addition makes it into a linear model. Instead of estimating \\(\\mu\\) from the data, we say that the mean of bill depth varies with bill length as linear function with an intercept \\(\\alpha\\) and a slope \\(\\beta\\).\n\\(\\alpha\\) and \\(\\beta\\) are now additional parameters that we will estimate and therefore need to set priors for.\n\\(\\alpha \\sim N(20, 6)\\)\n\\(\\beta \\sim N(0, 5)\\)\n\\(\\sigma \\sim \\text{Uniform}(0, 20)\\)\n\n\nExploring the generative model\n\n\nFitting the model (with data)\n\n\nExploring the posterior"
+  },
+  {
     "objectID": "spring2024.html",
     "href": "spring2024.html",
     "title": "Spring 2024 Schedule",
