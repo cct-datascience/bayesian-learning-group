@@ -186,7 +186,7 @@ $\text{billdepth}_i \sim N(\mu, \sigma)$
 
 Here, again, we say that bill depth is normally distributed with some mean and standard deviation.
 
-$\mu_i = \alpha + \beta(\text{billlength}_i = \text{mean}(\text{billlength}))$
+$\mu_i = \alpha + \beta(\text{billlength}_i - \text{mean}(\text{billlength}))$
 
 This addition makes it into a linear model.
 Instead of estimating $\mu$ from the data, we say that the mean of bill depth varies with bill length as linear function with an intercept $\alpha$ and a slope $\beta$.
@@ -201,6 +201,97 @@ $\sigma \sim \text{Uniform}(0, 20)$
 
 ### Exploring the generative model
 
+```{r}
+
+prior_draw <- data.frame(
+  bill_length = seq(min(penguins$bill_length_mm), max(penguins$bill_length_mm), length.out = 100),
+  intercept = rnorm(1, 20, 6),
+  beta = rnorm(1, 0, 5),
+  sigma = runif(1, 0, 20)
+) |>
+  mutate(mu = intercept + beta * (bill_length - mean(bill_length))) |>
+  rowwise() |>
+  mutate(sim_depth = rnorm(1, mu, sigma)) 
+
+```
+
+```{r}
+
+ggplot(prior_draw, aes(bill_length, mu)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = mu - sigma,
+                  ymax = mu + sigma),
+              alpha = .3) +
+  geom_point(aes(y = sim_depth)) +
+  ggtitle("Simulated bill depths",
+          subtitle = "Based on a single draw from the priors")
+
+```
+
 ### Fitting the model (with data)
 
+```{r, eval = F}
+
+depth_length_brm <- brm(
+  family = gaussian,
+  data = penguins,
+  formula = bill_depth_mm ~ bill_length_mm,
+  prior = c(
+      prior(normal(20, 6), class = Intercept),
+      prior(normal(0, 5), class = b),
+      prior(uniform(0, 20), class = sigma, ub = 20)),
+  iter = 1000
+)
+
+```
+
+```{r, eval = F, echo = F}
+
+save(depth_length_brm, file = "bill_depth_lm.RDS")
+
+```
+
+```{r, echo = F}
+load("bill_depth_lm.RDS")
+```
+
+```{r}
+plot(depth_length_brm)
+
+```
+
+```{r}
+
+summary(depth_length_brm)
+
+```
+
 ### Exploring the posterior
+
+```{r}
+
+lm_posterior <- as_draws_df(depth_length_brm)
+
+head(lm_posterior)
+
+```
+
+```{r}
+
+ggplot(lm_posterior, aes(b_Intercept)) +
+  stat_dotsinterval()
+
+
+ggplot(lm_posterior, aes(b_bill_length_mm)) +
+  stat_dotsinterval()
+
+
+ggplot(lm_posterior, aes(sigma)) +
+  stat_dotsinterval()
+```
+
+```{r}
+
+posterior_summary(depth_length_brm)
+
+```

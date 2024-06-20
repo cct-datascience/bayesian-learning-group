@@ -484,7 +484,7 @@ lp__        -111.280959 1.026213063 -114.1671862 -110.321475</code></pre>
 <h3 class="anchored" data-anchor-id="specifying-the-model">Specifying the model</h3>
 <p><span class="math inline">\(\text{billdepth}_i \sim N(\mu, \sigma)\)</span></p>
 <p>Here, again, we say that bill depth is normally distributed with some mean and standard deviation.</p>
-<p><span class="math inline">\(\mu_i = \alpha + \beta(\text{billlength}_i = \text{mean}(\text{billlength}))\)</span></p>
+<p><span class="math inline">\(\mu_i = \alpha + \beta(\text{billlength}_i - \text{mean}(\text{billlength}))\)</span></p>
 <p>This addition makes it into a linear model. Instead of estimating <span class="math inline">\(\mu\)</span> from the data, we say that the mean of bill depth varies with bill length as linear function with an intercept <span class="math inline">\(\alpha\)</span> and a slope <span class="math inline">\(\beta\)</span>.</p>
 <p><span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are now additional parameters that we will estimate and therefore need to set priors for.</p>
 <p><span class="math inline">\(\alpha \sim N(20, 6)\)</span></p>
@@ -493,12 +493,143 @@ lp__        -111.280959 1.026213063 -114.1671862 -110.321475</code></pre>
 </section>
 <section id="exploring-the-generative-model-1" class="level3">
 <h3 class="anchored" data-anchor-id="exploring-the-generative-model-1">Exploring the generative model</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>prior_draw <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">bill_length =</span> <span class="fu">seq</span>(<span class="fu">min</span>(penguins<span class="sc">$</span>bill_length_mm), <span class="fu">max</span>(penguins<span class="sc">$</span>bill_length_mm), <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept =</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">6</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">5</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sigma =</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> intercept <span class="sc">+</span> beta <span class="sc">*</span> (bill_length <span class="sc">-</span> <span class="fu">mean</span>(bill_length))) <span class="sc">|&gt;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sim_depth =</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, mu, sigma)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prior_draw, <span class="fu">aes</span>(bill_length, mu)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mu <span class="sc">-</span> sigma,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> mu <span class="sc">+</span> sigma),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> sim_depth)) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Simulated bill depths"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">"Based on a single draw from the priors"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="components_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="fitting-the-model-with-data" class="level3">
 <h3 class="anchored" data-anchor-id="fitting-the-model-with-data">Fitting the model (with data)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>depth_length_brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> gaussian,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> bill_depth_mm <span class="sc">~</span> bill_length_mm,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">20</span>, <span class="dv">6</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="at">class =</span> b),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">uniform</span>(<span class="dv">0</span>, <span class="dv">20</span>), <span class="at">class =</span> sigma, <span class="at">ub =</span> <span class="dv">20</span>)),</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">1000</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(depth_length_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="components_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(depth_length_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: bill_depth_mm ~ bill_length_mm 
+   Data: penguins (Number of observations: 68) 
+  Draws: 4 chains, each with iter = 1000; warmup = 500; thin = 1;
+         total post-warmup draws = 2000
+
+Regression Coefficients:
+               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept          7.57      1.60     4.29    10.62 1.00     1828     1302
+bill_length_mm     0.22      0.03     0.16     0.29 1.00     1803     1301
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.88      0.08     0.75     1.05 1.00     2180     1472
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
 </section>
 <section id="exploring-the-posterior-1" class="level3">
 <h3 class="anchored" data-anchor-id="exploring-the-posterior-1">Exploring the posterior</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>lm_posterior <span class="ot">&lt;-</span> <span class="fu">as_draws_df</span>(depth_length_brm)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lm_posterior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A draws_df: 6 iterations, 1 chains, and 6 variables
+  b_Intercept b_bill_length_mm sigma Intercept lprior lp__
+1         7.4             0.23  0.96        19   -8.3  -97
+2         7.0             0.24  0.94        19   -8.3  -96
+3         7.8             0.22  0.89        19   -8.3  -96
+4         7.6             0.23  0.79        19   -8.3  -96
+5         7.4             0.22  0.93        18   -8.3  -96
+6         8.9             0.20  0.92        18   -8.3  -95
+# ... hidden reserved variables {'.chain', '.iteration', '.draw'}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm_posterior, <span class="fu">aes</span>(b_Intercept)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_dotsinterval</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="components_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm_posterior, <span class="fu">aes</span>(b_bill_length_mm)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_dotsinterval</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="components_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm_posterior, <span class="fu">aes</span>(sigma)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_dotsinterval</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="components_files/figure-html/unnamed-chunk-22-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">posterior_summary</span>(depth_length_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    Estimate   Est.Error        Q2.5       Q97.5
+b_Intercept        7.5678375 1.597685969   4.2885750  10.6186846
+b_bill_length_mm   0.2222723 0.032584203   0.1603925   0.2888031
+sigma              0.8829648 0.077046605   0.7505312   1.0523065
+Intercept         18.4222455 0.108770766  18.2085474  18.6326642
+lprior            -8.2705540 0.004796696  -8.2807804  -8.2617956
+lp__             -95.6697446 1.293997087 -99.0571858 -94.2660701</code></pre>
+</div>
+</div>
 
 
 </section>
