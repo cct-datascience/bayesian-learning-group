@@ -1,1 +1,0 @@
-Sitemap: https://cct-datascience.github.io/bayesian-learning-group/sitemap.xml

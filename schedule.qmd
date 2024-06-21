@@ -27,7 +27,7 @@ title: "Schedule"
 |            |                                                                                                                                 |                                                                  |
 |            | *and/or*                                                                                                                        |                                                                  |
 |            |                                                                                                                                 |                                                                  |
-|            | -   Glance over Ch. 3-4                                                                                                         |                                                                  |
+|            | -   Glance over Ch. 2-3                                                                                                         |                                                                  |
 +------------+---------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+
 | 7/5/24     | -   [MCMC](https://www.youtube.com/watch?v=rZk2FqX2XnY&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&index=8)                         | -   Worked examples with MCMC                                    |
 |            |                                                                                                                                 |                                                                  |
