@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spring 2024 Schedule – Bayesian Learning Group</title>
+<title>Posterior distributionss – Bayesian Learning Group</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -67,6 +101,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="https://use.typekit.net/emv3zbo.css">
 </head>
@@ -116,8 +179,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes</a></li>
-  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a></li>
+  <li><a href="#getting-a-toy-model" id="toc-getting-a-toy-model" class="nav-link active" data-scroll-target="#getting-a-toy-model">Getting a toy model</a>
+  <ul class="collapse">
+  <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a></li>
+  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The code</a></li>
+  <li><a href="#fitting-the-model-with-data" id="toc-fitting-the-model-with-data" class="nav-link" data-scroll-target="#fitting-the-model-with-data">Fitting the model (with data)</a></li>
+  </ul></li>
+  <li><a href="#the-posterior-distribution" id="toc-the-posterior-distribution" class="nav-link" data-scroll-target="#the-posterior-distribution">The posterior distribution</a>
+  <ul class="collapse">
+  <li><a href="#mcmc-checks" id="toc-mcmc-checks" class="nav-link" data-scroll-target="#mcmc-checks">MCMC checks</a></li>
+  <li><a href="#posterior-predictive-checks" id="toc-posterior-predictive-checks" class="nav-link" data-scroll-target="#posterior-predictive-checks">Posterior predictive checks</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -126,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Spring 2024 Schedule</h1>
+<h1 class="title">Posterior distributionss</h1>
 </div>
 
 
@@ -143,133 +215,147 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="notes" class="level2">
-<h2 class="anchored" data-anchor-id="notes">Notes</h2>
-<p><a href="https://hackmd.io/z9Or6dTqRuKKkNHDeDM1cw?both=">See the group HackMD for notes from the Spring series.</a></p>
+<section id="getting-a-toy-model" class="level2">
+<h2 class="anchored" data-anchor-id="getting-a-toy-model">Getting a toy model</h2>
+<p>See the model from <a href="./components.html">last week</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Chinstrap"</span>) </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(bill_length_mm, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                     bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="posterior_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="the-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-model">The model</h3>
+<p><span class="math inline">\(\text{billdepth}_i \sim N(\mu, \sigma)\)</span></p>
+<p><span class="math inline">\(\mu_i = \alpha + \beta(\text{billlength}_i - \text{mean}(\text{billlength}))\)</span></p>
+<p><span class="math inline">\(\alpha \sim N(20, 6)\)</span></p>
+<p><span class="math inline">\(\beta \sim N(0, 5)\)</span></p>
+<p><span class="math inline">\(\sigma \sim \text{Uniform}(0, 20)\)</span></p>
 </section>
-<section id="schedule" class="level2">
-<h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th><p>Asynchronous content</p>
-<p>(we suggest reading OR watching)</p></th>
-<th>In-session</th>
-<th>Leader</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1/19/2024</td>
-<td><ul>
-<li><p>Ch. 1 The Golem of Prague</p></li>
-<li><p>Lecture 1: <a href="https://www.youtube.com/watch?v=FdnMWdICdRs&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=1">Science before statistics</a></p></li>
-</ul></td>
-<td><ul>
-<li><p>Introductions</p></li>
-<li><p>Group setup and format</p></li>
-<li><p>Software setup</p></li>
-<li><p>Discuss the drawing of owls</p></li>
-</ul></td>
-<td>Jessica, Renata</td>
-</tr>
-<tr class="even">
-<td><p>2/2/2024</p>
-<p><strong>Time change: Meet from 11-1 instead of 12-2!</strong></p></td>
-<td><ul>
-<li><p>Ch. 2 Small Worlds and Large Worlds</p></li>
-<li><p>Ch. 3 Sampling the Imaginary</p></li>
-<li><p>Lecture 2: <a href="https://www.youtube.com/watch?v=R1vcdhPBlXA&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=2">The Garden of Forking Data</a></p></li>
-</ul></td>
-<td><ul>
-<li><p>Code up Garden of Forking Data example</p></li>
-<li><p><a href="https://github.com/rmcelreath/stat_rethinking_2023/blob/main/homework/week01.pdf">Challenge problems here!</a></p></li>
-<li><p>Exercises in brms book <a href="https://bookdown.org/content/4857/small-worlds-and-large-worlds.html">sections 2</a> and <a href="https://bookdown.org/content/4857/sampling-the-imaginary.html">3</a></p></li>
-</ul></td>
-<td>Jessica, Renata</td>
-</tr>
-<tr class="odd">
-<td>2/16/2024</td>
-<td><ul>
-<li><p>Ch. 4 Linear Models</p></li>
-<li><p>Lecture 3: <a href="https://www.youtube.com/watch?v=tNOu-SEacNU">Geocentric Models</a> (skip to 19:00 if you are familiar with Gaussian distributions)</p></li>
-<li><p>Lecture 4: <a href="https://www.youtube.com/watch?v=F0N4b7K_iYQ&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=4">Lines and Curves</a></p></li>
-</ul></td>
-<td><ul>
-<li>Challenge problems from McElreath’s course <a href="https://github.com/rmcelreath/stat_rethinking_2023/blob/main/homework/week02.pdf">here</a></li>
-<li><a href="https://bookdown.org/content/4857/geocentric-models.html">Exercises in brms book</a></li>
-<li>Check pacing and set rest of schedule</li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>3/1/2024</td>
-<td><ul>
-<li>N/A</li>
-</ul></td>
-<td><ul>
-<li>Demo (Jessica)</li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>3/15/2024</td>
-<td><ul>
-<li>Continue Ch 4.</li>
-</ul></td>
-<td><ul>
-<li><p>Ch. 4</p></li>
-<li><p>Demo (Val)</p></li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>3/29/2024</td>
-<td><ul>
-<li>Ch. 5 Many Variables and Spurious Waffles</li>
-</ul>
-<!-- -->
+<section id="the-code" class="level3">
+<h3 class="anchored" data-anchor-id="the-code">The code</h3>
+</section>
+<section id="fitting-the-model-with-data" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-the-model-with-data">Fitting the model (with data)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>depth_length_brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> gaussian,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> bill_depth_mm <span class="sc">~</span> bill_length_mm,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">20</span>, <span class="dv">6</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="at">class =</span> b),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">uniform</span>(<span class="dv">0</span>, <span class="dv">20</span>), <span class="at">class =</span> sigma, <span class="at">ub =</span> <span class="dv">20</span>)),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">1000</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(depth_length_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="posterior_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-posterior-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="the-posterior-distribution">The posterior distribution</h2>
+<p><a href="https://bookdown.org/kevin_davisross/bayesian-reasoning-and-methods/">This bookdown book</a> is an excellent resource and is the background of these materials.</p>
+<p>The posterior distribution gives the likely distributions of the <em>parameters</em> of a model taking into account the <em>prior</em>, the <em>data</em>, and the model <em>structure</em> we defined earlier (in this case a linear model of bill depth as a function of bill length).</p>
+<section id="mcmc-checks" class="level3">
+<h3 class="anchored" data-anchor-id="mcmc-checks">MCMC checks</h3>
+<p>We characterize the posterior by sampling from the posterior using Markov Chain Monte Carlo. MCMC uses “chains” to probabilistically explore the landscape of possible parameter values. MCMC <em>should</em> give us sets of simulated parameter values where more likely values are represented more frequently (proportional to how likely they are). But, after a model runs it is a good idea to check diagnostics on the MCMC procedure to make sure it’s gone smoothly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(depth_length_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: bill_depth_mm ~ bill_length_mm 
+   Data: penguins (Number of observations: 68) 
+  Draws: 4 chains, each with iter = 1000; warmup = 500; thin = 1;
+         total post-warmup draws = 2000
+
+Regression Coefficients:
+               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept          7.57      1.60     4.29    10.62 1.00     1828     1302
+bill_length_mm     0.22      0.03     0.16     0.29 1.00     1803     1301
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.88      0.08     0.75     1.05 1.00     2180     1472
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
+<p>Diagnostics:</p>
 <ul>
-<li>Ch. 6 The Haunted DAG and Causal Terror</li>
-</ul></td>
-<td><ul>
-<li>Ch 6 Problems TBD</li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>4/12/2024</td>
-<td><ul>
-<li><p>Ch. 7 Ulysses’ Compass</p></li>
-<li><p>Ch. 8 Conditional Manatees</p></li>
-</ul></td>
-<td><ul>
-<li>Ch. 7-8 Problems TBD</li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>4/26/2024</td>
-<td><ul>
-<li>Ch. 9 MCMC</li>
-</ul></td>
-<td><ul>
-<li><p>Ch. 9 Problems</p></li>
-<li><p>Wrap-up and Planning</p></li>
-</ul></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<li>Trace plots should look like “hairy caterpillars”</li>
+<li>Convergence: Rhat should approach 1</li>
+<li>ESS should be high (<a href="https://easystats.github.io/bayestestR/reference/effective_sample.html">One page I found</a> offers 1000 as a rule of thumb; <code>brms</code>/<code>stan</code> will print a warning about low ESS).</li>
+</ul>
+</section>
+<section id="posterior-predictive-checks" class="level3">
+<h3 class="anchored" data-anchor-id="posterior-predictive-checks">Posterior predictive checks</h3>
+<p><a href="https://www.andrewheiss.com/blog/2021/11/10/ame-bayes-re-guide/#expected-values-of-the-posterior-predictive-distribution">Here is an excellent blog post on posterior predictive distributions and marginal effects</a>.</p>
+<p>The posterior distribution gives us distributions for the <em>parameters</em>. We want to use these to generate distributions for the <em>data</em> that we would get if we give the original predictor variables to the model. If the model says that the data we observe is highly unlikely - i.e.&nbsp;the posterior predictions are far off from the observed data - we should be suspicious.</p>
+<p>The <code>predicted_draws</code> function from the <code>tidybayes</code> package generates posterior predictive distributions. If you provide the original input data as <code>newdata</code>, it will simulate values for the response variable based on the original predictor variables plus the parameters from draws from the posterior.</p>
+<p>In this plot, the real data are in blue:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>posterior_draws <span class="ot">&lt;-</span> tidybayes<span class="sc">::</span><span class="fu">predicted_draws</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  depth_length_brm, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> penguins,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ndraws =</span> <span class="dv">100</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(posterior_draws, <span class="fu">aes</span>(bill_length_mm, .prediction)) <span class="sc">+</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> bill_depth_mm), <span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="posterior_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
