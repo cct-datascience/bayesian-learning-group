@@ -1,5 +1,5 @@
 ---
-title: "Posterior distributionss"
+title: "Posterior distributions"
 editor: source
 freeze: true
 ---
