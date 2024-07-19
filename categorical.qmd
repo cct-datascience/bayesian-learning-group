@@ -20,8 +20,8 @@ penguins <- penguins |>
   filter(!is.na(sex),
          species == "Chinstrap") 
 
-ggplot(penguins, aes(bill_length_mm, 
-                     bill_depth_mm, 
+ggplot(penguins, aes(bill_depth_mm, 
+                     bill_length_mm, 
                      color = sex)) +
   geom_point()
 ```
@@ -43,7 +43,7 @@ First we can fit a model that will just fit different *intercepts* for the diffe
 depth_length_sex_brm <- brm(
   family = gaussian,
   data = penguins,
-  formula = bill_length_mm ~ 0 + bill_depth_mm + sex,
+  formula = bill_depth_mm ~ 0 + bill_length_mm + sex,
   prior = c(
       prior(normal(0, 5), class = b),
       prior(uniform(0, 20), class = sigma, ub = 20)),
