@@ -1,0 +1,116 @@
+---
+title: "Categorical models and model comparison"
+editor: source
+freeze: true
+---
+
+## Adding categorical predictors
+
+```{r}
+library(palmerpenguins)
+library(dplyr)
+library(ggplot2)
+library(ggdist)
+library(brms)
+library(tidybayes)
+library(tidyr)
+theme_set(theme_minimal())
+
+penguins <- penguins |>
+  filter(!is.na(sex),
+         species == "Chinstrap") 
+
+ggplot(penguins, aes(bill_length_mm, 
+                     bill_depth_mm, 
+                     color = sex)) +
+  geom_point()
+```
+
+### The model
+
+-   Say we want to model `bill_length` as a function of both `bill_depth` and `sex`.
+-   There are different approaches to adding a categorial predictor to a model, sometimes called "indicator" (or "dummy") variables, or "index" variables. McElreath comes down strongly in favor of using "index" variables. For more discussion, see [here](https://bookdown.org/content/4857/the-many-variables-the-spurious-waffles.html#categorical-variables) and links therein.
+
+### The code
+
+### Fitting the model
+
+First we can fit a model that will just fit different *intercepts* for the different species:
+
+```{r, eval = F}
+
+
+depth_length_sex_brm <- brm(
+  family = gaussian,
+  data = penguins,
+  formula = bill_length_mm ~ 0 + bill_depth_mm + sex,
+  prior = c(
+      prior(normal(0, 5), class = b),
+      prior(uniform(0, 20), class = sigma, ub = 20)),
+  iter = 1000
+)
+
+```
+
+```{r, eval = F, echo = F}
+
+save(depth_length_sex_brm, file = "bill_depth_sex_lm.RDS")
+
+```
+
+```{r, echo = F}
+load("bill_depth_sex_lm.RDS")
+```
+
+### Interpreting the model
+
+Model diagnostics:
+
+```{r}
+
+summary(depth_length_sex_brm)
+
+plot(depth_length_sex_brm)
+
+```
+
+Comparing the intercepts for `sex`:
+
+```{r}
+
+as_draws_df(depth_length_sex_brm) %>% 
+  mutate(diff_fm = b_sexfemale - b_sexmale) %>% 
+  pivot_longer(cols = c(b_sexfemale:sigma, diff_fm)) %>% 
+  group_by(name) %>% 
+  mean_qi(value, .width = .89)
+
+```
+
+### Model comparison
+
+See chapter 7 and the bookdown book [here](https://bookdown.org/content/4857/ulysses-compass.html) for more on model comparison criteria.
+
+```{r}
+
+
+depth_length_sex_brm <- depth_length_sex_brm |> add_criterion(criterion = c("waic", "loo"))
+
+depth_length_sex_brm$criteria
+
+```
+
+Compare this to our old model, with no term for sex:
+
+```{r, echo = F}
+load("bill_depth_lm.RDS")
+```
+
+```{r}
+
+
+depth_length_brm <- depth_length_brm |> add_criterion(criterion = c("waic", "loo"))
+
+depth_length_brm$criteria
+
+
+```
