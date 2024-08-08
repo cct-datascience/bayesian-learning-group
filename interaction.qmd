@@ -1,0 +1,138 @@
+---
+title: "Fitting and interpreting interaction models"
+editor: source
+freeze: true
+---
+
+## New dataset: this time with mice!
+
+```{r, eval = F, echo = T}
+
+install.packages('ratdat')
+
+```
+
+```{r}
+library(ratdat)
+library(dplyr)
+library(ggplot2)
+library(ggdist)
+library(brms)
+library(tidybayes)
+library(tidyr)
+theme_set(theme_minimal())
+
+complete_timestamp <- ratdat::complete |>
+  mutate(date = as.Date(paste(month, day, year, sep = "-"), format = "%m-%d-%Y"),
+         scientific_name = paste(genus, species, sep = "_")) |>
+  filter(!is.na(weight),
+         !is.na(hindfoot_length),
+         species_id %in% c("DM", "PP")) |>
+  mutate(weight = scale(weight),
+         numeric_date = as.numeric(date))
+
+
+ggplot(complete_timestamp, aes(date, weight, color = species_id)) +
+  geom_point(alpha = .1) +
+  geom_smooth(method = "lm")
+
+
+```
+
+## The models
+
+-   Say we want to model `weight` as a function of `time`, and we are curious how species affects this relationship
+
+### Weight and species (but no interaction)
+
+```{r, eval = F, echo = T}
+
+weight_species_brm <- brm(
+  family = gaussian,
+  data = complete_timestamp,
+  formula = weight ~ 0 + numeric_date + species_id,
+  prior = c(
+    prior(normal(0, 5), class = b),
+    prior(uniform(0, 20), class = sigma, ub = 20)),
+  iter = 4000,
+  file = "weight_species_brm.RDS"
+)
+```
+
+### Weight and species with interaction
+
+```{r, eval = F, echo = T}
+weight_species_interaction_brm <- brm(
+  data = complete_timestamp, 
+  family = gaussian,
+  bf(weight ~ 0 + a * numeric_date, 
+     a ~ 0 + species_id, 
+     nl = TRUE),
+  prior = c(prior(normal(1, 0.1), class = b, coef = DM, nlpar = a),
+            prior(normal(1, 0.1), class = b, coef = PP, nlpar = a),
+            prior(exponential(1), class = sigma)),
+  iter = 4000)
+```
+
+```{r, echo = F, eval = T}
+weight_species_brm <- readRDS("weight_species_brm.RDS")
+weight_species_interaction_brm <- readRDS("weight_species_interaction_brm.RDS")
+
+```
+
+```{r}
+summary(weight_species_interaction_brm)
+```
+
+### Interpreting the model
+
+Model diagnostics:
+
+```{r}
+
+summary(depth_length_sex_brm)
+
+plot(depth_length_sex_brm)
+
+```
+
+Comparing the intercepts for `sex`:
+
+```{r}
+
+as_draws_df(depth_length_sex_brm) %>% 
+  mutate(diff_fm = b_sexfemale - b_sexmale) %>% 
+  pivot_longer(cols = c(b_sexfemale:sigma, diff_fm)) %>% 
+  group_by(name) %>% 
+  mean_qi(value, .width = .89)
+
+```
+
+### Model comparison
+
+See chapter 7 and the bookdown book [here](https://bookdown.org/content/4857/ulysses-compass.html) for more on model comparison criteria.
+
+```{r}
+
+
+depth_length_sex_brm <- depth_length_sex_brm |> add_criterion(criterion = c("waic", "loo"))
+
+depth_length_sex_brm$criteria
+
+```
+
+Compare this to our old model, with no term for sex:
+
+```{r, echo = F}
+load("bill_depth_lm.RDS")
+```
+
+```{r}
+
+
+depth_length_brm <- depth_length_brm |> add_criterion(criterion = c("waic", "loo"))
+
+depth_length_brm$criteria
+
+
+```
