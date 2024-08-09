@@ -6,11 +6,22 @@ freeze: true
 
 ## New dataset: this time with mice!
 
+### The Portal data
+
+[The Portal Project](https://portal.weecology.org/): 40 years of population surveys of rodents in southeastern Arizona.
+
+We'll focus on abundance trends in two species, *Dipodomys spectabilis* and *Chaetodipus penicillatus*.
+[More on these species.](https://portalcasting.netlify.app/profiles)
+
+### Getting the Portal teaching data
+
 ```{r, eval = F, echo = T}
 
 install.packages('ratdat')
 
 ```
+
+### Plotting trends in DS and PP
 
 ```{r}
 library(ratdat)
@@ -22,117 +33,115 @@ library(tidybayes)
 library(tidyr)
 theme_set(theme_minimal())
 
-complete_timestamp <- ratdat::complete |>
-  mutate(date = as.Date(paste(month, day, year, sep = "-"), format = "%m-%d-%Y"),
-         scientific_name = paste(genus, species, sep = "_")) |>
-  filter(!is.na(weight),
-         !is.na(hindfoot_length),
-         species_id %in% c("DM", "PP")) |>
-  mutate(weight = scale(weight),
-         numeric_date = as.numeric(date))
+complete_annual <- ratdat::complete |>
+  group_by(year, species_id) |>
+  filter(species_id %in% c("DS", "PP")) |>
+  tally() |>
+  ungroup() |>
+  mutate(n = scale(n))
 
+ggplot(complete_annual, aes(year, n, color = species_id)) +
+  geom_point()
 
-ggplot(complete_timestamp, aes(date, weight, color = species_id)) +
-  geom_point(alpha = .1) +
-  geom_smooth(method = "lm")
 
 
 ```
 
-## The models
+## Fitting models
 
--   Say we want to model `weight` as a function of `time`, and we are curious how species affects this relationship
+-   Say we want to model `abund` as a function of `time`, and we are curious how species affects this relationship
 
-### Weight and species (but no interaction)
+### abund and species (but no interaction)
 
 ```{r, eval = F, echo = T}
 
-weight_species_brm <- brm(
+abund_species_brm <- brm(
   family = gaussian,
-  data = complete_timestamp,
-  formula = weight ~ 0 + numeric_date + species_id,
-  prior = c(
-    prior(normal(0, 5), class = b),
-    prior(uniform(0, 20), class = sigma, ub = 20)),
-  iter = 4000,
-  file = "weight_species_brm.RDS"
+  data = complete_annual,
+  formula = n ~ 0 + year + species_id,
+  iter = 4000, 
+  warmup = 1000, 
+  chains = 4, 
+  cores = 4,
+  seed = 1977,
+  file = "abund_species_brm",
+  control = list(max_treedepth = 15)
 )
+
 ```
 
-### Weight and species with interaction
+### abund and species with interaction
 
-```{r, eval = F, echo = T}
-weight_species_interaction_brm <- brm(
-  data = complete_timestamp, 
-  family = gaussian,
-  bf(weight ~ 0 + a * numeric_date, 
-     a ~ 0 + species_id, 
-     nl = TRUE),
-  prior = c(prior(normal(1, 0.1), class = b, coef = DM, nlpar = a),
-            prior(normal(1, 0.1), class = b, coef = PP, nlpar = a),
-            prior(exponential(1), class = sigma)),
-  iter = 4000)
+```{r, echo = T}
+abund_species_interaction_brm <-  brm(data = complete_annual, 
+      family = gaussian,
+      bf(n ~ 0 + a + b * year, 
+         a ~ 0 + species_id,
+         b ~ 0 + species_id,
+         nl = TRUE),
+      iter = 4000, 
+      warmup = 1000, 
+      chains = 4, 
+      cores = 4,
+      control = list(max_treedepth = 15),
+      seed = 8,
+      file = "abund_species_interaction_brm")
 ```
 
 ```{r, echo = F, eval = T}
-weight_species_brm <- readRDS("weight_species_brm.RDS")
-weight_species_interaction_brm <- readRDS("weight_species_interaction_brm.RDS")
+abund_species_brm <- readRDS("abund_species_brm.RDS")
+abund_species_interaction_brm <- readRDS("abund_species_interaction_brm.RDS")
 
 ```
+
+## A note on priors
 
 ```{r}
-summary(weight_species_interaction_brm)
+default_prior(abund_species_brm)
+default_prior(abund_species_interaction_brm)
 ```
 
-### Interpreting the model
+## Model results
 
-Model diagnostics:
+### No interaction
 
 ```{r}
-
-summary(depth_length_sex_brm)
-
-plot(depth_length_sex_brm)
-
-```
-
-Comparing the intercepts for `sex`:
-
-```{r}
-
-as_draws_df(depth_length_sex_brm) %>% 
-  mutate(diff_fm = b_sexfemale - b_sexmale) %>% 
-  pivot_longer(cols = c(b_sexfemale:sigma, diff_fm)) %>% 
-  group_by(name) %>% 
-  mean_qi(value, .width = .89)
-
-```
-
-### Model comparison
-
-See chapter 7 and the bookdown book [here](https://bookdown.org/content/4857/ulysses-compass.html) for more on model comparison criteria.
-
-```{r}
-
-
-depth_length_sex_brm <- depth_length_sex_brm |> add_criterion(criterion = c("waic", "loo"))
-
-depth_length_sex_brm$criteria
-
-```
-
-Compare this to our old model, with no term for sex:
-
-```{r, echo = F}
-load("bill_depth_lm.RDS")
+summary(abund_species_brm)
+plot(abund_species_brm)
 ```
 
 ```{r}
 
+abund_species_brm_predictions <- complete_annual |>
+  add_epred_draws(abund_species_brm, ndraws = 50)
 
-depth_length_brm <- depth_length_brm |> add_criterion(criterion = c("waic", "loo"))
+ggplot(abund_species_brm_predictions, aes(year, n, color = species_id, fill = species_id)) +
+  geom_point() +  
+  stat_lineribbon(aes(y = .epred), alpha = .1) 
 
-depth_length_brm$criteria
+```
 
+### Interaction
+
+```{r}
+
+summary(abund_species_interaction_brm)
+plot(abund_species_interaction_brm)
+
+```
+
+```{r}
+
+abund_species_interaction_brm_draws <- tidy_draws(abund_species_interaction_brm)
+
+ggplot(abund_species_interaction_brm_draws, aes(b_b_species_idDS - b_b_species_idPP)) +
+  geom_histogram()
+
+abund_species_interaction_brm_predictions <- complete_annual |>
+  add_epred_draws(abund_species_interaction_brm, ndraws = 50)
+
+ggplot(abund_species_interaction_brm_predictions, aes(year, n, color = species_id, fill = species_id)) +
+  geom_point() +  
+  stat_lineribbon(aes(y = .epred), alpha = .1) 
 
 ```
