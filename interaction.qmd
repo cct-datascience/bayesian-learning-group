@@ -72,6 +72,9 @@ abund_species_brm <- brm(
 
 ### abund and species with interaction
 
+To fit an interaction model with index (rather than indicator) variables, use the brms nonlinear syntax.
+[More here!](https://bookdown.org/content/4857/conditional-manatees.html#building-an-interaction)
+
 ```{r, echo = T}
 abund_species_interaction_brm <-  brm(data = complete_annual, 
       family = gaussian,
