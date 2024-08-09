@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Categorical models and model comparison – Bayesian Learning Group</title>
+<title>Fitting and interpreting interaction models – Bayesian Learning Group</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,13 +150,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#adding-categorical-predictors" id="toc-adding-categorical-predictors" class="nav-link active" data-scroll-target="#adding-categorical-predictors">Adding categorical predictors</a>
+  <li><a href="#new-dataset-this-time-with-mice" id="toc-new-dataset-this-time-with-mice" class="nav-link active" data-scroll-target="#new-dataset-this-time-with-mice">New dataset: this time with mice!</a>
   <ul class="collapse">
-  <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a></li>
-  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The code</a></li>
-  <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model">Fitting the model</a></li>
-  <li><a href="#interpreting-the-model" id="toc-interpreting-the-model" class="nav-link" data-scroll-target="#interpreting-the-model">Interpreting the model</a></li>
-  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison">Model comparison</a></li>
+  <li><a href="#the-portal-data" id="toc-the-portal-data" class="nav-link" data-scroll-target="#the-portal-data">The Portal data</a></li>
+  <li><a href="#getting-the-portal-teaching-data" id="toc-getting-the-portal-teaching-data" class="nav-link" data-scroll-target="#getting-the-portal-teaching-data">Getting the Portal teaching data</a></li>
+  <li><a href="#plotting-trends-in-ds-and-pp" id="toc-plotting-trends-in-ds-and-pp" class="nav-link" data-scroll-target="#plotting-trends-in-ds-and-pp">Plotting trends in DS and PP</a></li>
+  </ul></li>
+  <li><a href="#fitting-models" id="toc-fitting-models" class="nav-link" data-scroll-target="#fitting-models">Fitting models</a>
+  <ul class="collapse">
+  <li><a href="#abund-and-species-but-no-interaction" id="toc-abund-and-species-but-no-interaction" class="nav-link" data-scroll-target="#abund-and-species-but-no-interaction">abund and species (but no interaction)</a></li>
+  <li><a href="#abund-and-species-with-interaction" id="toc-abund-and-species-with-interaction" class="nav-link" data-scroll-target="#abund-and-species-with-interaction">abund and species with interaction</a></li>
+  </ul></li>
+  <li><a href="#a-note-on-priors" id="toc-a-note-on-priors" class="nav-link" data-scroll-target="#a-note-on-priors">A note on priors</a></li>
+  <li><a href="#model-results" id="toc-model-results" class="nav-link" data-scroll-target="#model-results">Model results</a>
+  <ul class="collapse">
+  <li><a href="#no-interaction" id="toc-no-interaction" class="nav-link" data-scroll-target="#no-interaction">No interaction</a></li>
+  <li><a href="#interaction" id="toc-interaction" class="nav-link" data-scroll-target="#interaction">Interaction</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -166,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Categorical models and model comparison</h1>
+<h1 class="title">Fitting and interpreting interaction models</h1>
 </div>
 
 
@@ -183,11 +192,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="adding-categorical-predictors" class="level2">
-<h2 class="anchored" data-anchor-id="adding-categorical-predictors">Adding categorical predictors</h2>
+<section id="new-dataset-this-time-with-mice" class="level2">
+<h2 class="anchored" data-anchor-id="new-dataset-this-time-with-mice">New dataset: this time with mice!</h2>
+<section id="the-portal-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-portal-data">The Portal data</h3>
+<p><a href="https://portal.weecology.org/">The Portal Project</a>: 40 years of population surveys of rodents in southeastern Arizona.</p>
+<p>We’ll focus on abundance trends in two species, <em>Dipodomys spectabilis</em> and <em>Chaetodipus penicillatus</em>. <a href="https://portalcasting.netlify.app/profiles">More on these species.</a></p>
+</section>
+<section id="getting-the-portal-teaching-data" class="level3">
+<h3 class="anchored" data-anchor-id="getting-the-portal-teaching-data">Getting the Portal teaching data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'ratdat'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-trends-in-ds-and-pp" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-trends-in-ds-and-pp">Plotting trends in DS and PP</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ratdat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ratdat' was built under R version 4.4.1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -202,9 +227,9 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: Rcpp</code></pre>
 </div>
@@ -227,7 +252,7 @@ Attaching package: 'brms'</code></pre>
 
     ar</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'tidybayes'</code></pre>
@@ -237,179 +262,226 @@ Attaching package: 'tidybayes'</code></pre>
 
     dstudent_t, pstudent_t, qstudent_t, rstudent_t</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>         species <span class="sc">==</span> <span class="st">"Chinstrap"</span>) </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(bill_depth_mm, </span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                     bill_length_mm, </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> sex)) <span class="sc">+</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>complete_annual <span class="ot">&lt;-</span> ratdat<span class="sc">::</span>complete <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, species_id) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DS"</span>, <span class="st">"PP"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">scale</span>(n))</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(complete_annual, <span class="fu">aes</span>(year, n, <span class="at">color =</span> species_id)) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="categorical_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="the-model" class="level3">
-<h3 class="anchored" data-anchor-id="the-model">The model</h3>
+</section>
+</section>
+<section id="fitting-models" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-models">Fitting models</h2>
 <ul>
-<li>Say we want to model <code>bill_length</code> as a function of both <code>bill_depth</code> and <code>sex</code>.</li>
-<li>There are different approaches to adding a categorial predictor to a model, sometimes called “indicator” (or “dummy”) variables, or “index” variables. McElreath comes down strongly in favor of using “index” variables. For more discussion, see <a href="https://bookdown.org/content/4857/the-many-variables-the-spurious-waffles.html#categorical-variables">here</a> and links therein.</li>
+<li>Say we want to model <code>abund</code> as a function of <code>time</code>, and we are curious how species affects this relationship</li>
 </ul>
-</section>
-<section id="the-code" class="level3">
-<h3 class="anchored" data-anchor-id="the-code">The code</h3>
-</section>
-<section id="fitting-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="fitting-the-model">Fitting the model</h3>
-<p>First we can fit a model that will just fit different <em>intercepts</em> for the different species:</p>
+<section id="abund-and-species-but-no-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="abund-and-species-but-no-interaction">abund and species (but no interaction)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>depth_length_sex_brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> gaussian,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> bill_depth_mm <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> bill_length_mm <span class="sc">+</span> sex,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">c</span>(</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="at">class =</span> b),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">uniform</span>(<span class="dv">0</span>, <span class="dv">20</span>), <span class="at">class =</span> sigma, <span class="at">ub =</span> <span class="dv">20</span>)),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">1000</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>abund_species_brm <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> gaussian,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> complete_annual,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> n <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> year <span class="sc">+</span> species_id,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">4000</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">warmup =</span> <span class="dv">1000</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">4</span>, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1977</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"abund_species_brm"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">max_treedepth =</span> <span class="dv">15</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="interpreting-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="interpreting-the-model">Interpreting the model</h3>
-<p>Model diagnostics:</p>
+<section id="abund-and-species-with-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="abund-and-species-with-interaction">abund and species with interaction</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(depth_length_sex_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>abund_species_interaction_brm <span class="ot">&lt;-</span>  <span class="fu">brm</span>(<span class="at">data =</span> complete_annual, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">family =</span> gaussian,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">bf</span>(n <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> a <span class="sc">+</span> b <span class="sc">*</span> year, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>         a <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> species_id,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>         b <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> species_id,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">nl =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">iter =</span> <span class="dv">4000</span>, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">warmup =</span> <span class="dv">1000</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">chains =</span> <span class="dv">4</span>, </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">control =</span> <span class="fu">list</span>(<span class="at">max_treedepth =</span> <span class="dv">15</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">seed =</span> <span class="dv">8</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">file =</span> <span class="st">"abund_species_interaction_brm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="a-note-on-priors" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-on-priors">A note on priors</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">default_prior</span>(abund_species_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                prior class         coef group resp dpar nlpar lb ub
+               (flat)     b                                         
+               (flat)     b species_idDS                            
+               (flat)     b species_idPP                            
+               (flat)     b         year                            
+ student_t(3, 0, 2.5) sigma                                     0   
+       source
+      default
+ (vectorized)
+ (vectorized)
+ (vectorized)
+      default</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">default_prior</span>(abund_species_interaction_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                prior class         coef group resp dpar nlpar lb ub
+               (flat)     b                                  a      
+               (flat)     b species_idDS                     a      
+               (flat)     b species_idPP                     a      
+               (flat)     b                                  b      
+               (flat)     b species_idDS                     b      
+               (flat)     b species_idPP                     b      
+ student_t(3, 0, 2.5) sigma                                     0   
+       source
+      default
+ (vectorized)
+ (vectorized)
+      default
+ (vectorized)
+ (vectorized)
+      default</code></pre>
+</div>
+</div>
+</section>
+<section id="model-results" class="level2">
+<h2 class="anchored" data-anchor-id="model-results">Model results</h2>
+<section id="no-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="no-interaction">No interaction</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abund_species_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
   Links: mu = identity; sigma = identity 
-Formula: bill_depth_mm ~ 0 + bill_length_mm + sex 
-   Data: penguins (Number of observations: 68) 
-  Draws: 4 chains, each with iter = 1000; warmup = 500; thin = 1;
-         total post-warmup draws = 2000
+Formula: n ~ 0 + year + species_id 
+   Data: complete_annual (Number of observations: 47) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
 
 Regression Coefficients:
-               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-bill_length_mm     0.16      0.04     0.09     0.23 1.01      356      391
-sexfemale         10.28      1.67     7.00    13.64 1.01      356      399
-sexmale           11.24      1.83     7.60    14.84 1.01      361      388
+             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+year             0.02      0.02    -0.02     0.07 1.00     1918     2020
+species_idDS   -46.08     42.89  -131.69    36.68 1.00     1919     2016
+species_idPP   -46.12     42.94  -131.86    36.60 1.00     1918     2019
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.77      0.07     0.65     0.92 1.00      545      664
+sigma     1.03      0.12     0.83     1.29 1.00     2919     2884
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(depth_length_sex_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(abund_species_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="categorical_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Comparing the intercepts for <code>sex</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_draws_df</span>(depth_length_sex_brm) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_fm =</span> b_sexfemale <span class="sc">-</span> b_sexmale) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(b_sexfemale<span class="sc">:</span>sigma, diff_fm)) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean_qi</span>(value, <span class="at">.width =</span> .<span class="dv">89</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Dropping 'draws_df' class as required metadata was removed.</code></pre>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>abund_species_brm_predictions <span class="ot">&lt;-</span> complete_annual <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_epred_draws</span>(abund_species_brm, <span class="at">ndraws =</span> <span class="dv">50</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(abund_species_brm_predictions, <span class="fu">aes</span>(year, n, <span class="at">color =</span> species_id, <span class="at">fill =</span> species_id)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred), <span class="at">alpha =</span> .<span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 7
-  name         value .lower .upper .width .point .interval
-  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
-1 b_sexfemale 10.3    7.64  12.9     0.89 mean   qi       
-2 b_sexmale   11.2    8.31  14.1     0.89 mean   qi       
-3 diff_fm     -0.960 -1.34  -0.564   0.89 mean   qi       
-4 sigma        0.772  0.670  0.889   0.89 mean   qi       </code></pre>
 </div>
 </div>
 </section>
-<section id="model-comparison" class="level3">
-<h3 class="anchored" data-anchor-id="model-comparison">Model comparison</h3>
-<p>See chapter 7 and the bookdown book <a href="https://bookdown.org/content/4857/ulysses-compass.html">here</a> for more on model comparison criteria.</p>
+<section id="interaction" class="level3">
+<h3 class="anchored" data-anchor-id="interaction">Interaction</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>depth_length_sex_brm <span class="ot">&lt;-</span> depth_length_sex_brm <span class="sc">|&gt;</span> <span class="fu">add_criterion</span>(<span class="at">criterion =</span> <span class="fu">c</span>(<span class="st">"waic"</span>, <span class="st">"loo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: 
-2 (2.9%) p_waic estimates greater than 0.4. We recommend trying loo instead.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>depth_length_sex_brm<span class="sc">$</span>criteria</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abund_species_interaction_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>$waic
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: n ~ 0 + a + b * year 
+         a ~ 0 + species_id
+         b ~ 0 + species_id
+   Data: complete_annual (Number of observations: 47) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
 
-Computed from 2000 by 68 log-likelihood matrix.
+Regression Coefficients:
+               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+a_species_idDS   237.47     40.99   157.80   318.19 1.00     4569     4924
+a_species_idPP  -220.30     31.96  -284.72  -154.73 1.00     4501     4600
+b_species_idDS    -0.12      0.02    -0.16    -0.08 1.00     4570     4953
+b_species_idPP     0.11      0.02     0.08     0.14 1.00     4499     4544
 
-          Estimate   SE
-elpd_waic    -80.2  5.7
-p_waic         4.1  1.3
-waic         160.3 11.3
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.62      0.07     0.50     0.77 1.00     5474     4694
 
-2 (2.9%) p_waic estimates greater than 0.4. We recommend trying loo instead. 
-
-$loo
-
-Computed from 2000 by 68 log-likelihood matrix.
-
-         Estimate   SE
-elpd_loo    -80.3  5.7
-p_loo         4.2  1.4
-looic       160.5 11.4
-------
-MCSE of elpd_loo is 0.2.
-MCSE and ESS estimates assume MCMC draws (r_eff in [0.2, 1.1]).
-
-All Pareto k estimates are good (k &lt; 0.7).
-See help('pareto-k-diagnostic') for details.</code></pre>
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(abund_species_interaction_brm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<p>Compare this to our old model, with no term for sex:</p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>depth_length_brm <span class="ot">&lt;-</span> depth_length_brm <span class="sc">|&gt;</span> <span class="fu">add_criterion</span>(<span class="at">criterion =</span> <span class="fu">c</span>(<span class="st">"waic"</span>, <span class="st">"loo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>abund_species_interaction_brm_draws <span class="ot">&lt;-</span> <span class="fu">tidy_draws</span>(abund_species_interaction_brm)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(abund_species_interaction_brm_draws, <span class="fu">aes</span>(b_b_species_idDS <span class="sc">-</span> b_b_species_idPP)) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: 
-1 (1.5%) p_waic estimates greater than 0.4. We recommend trying loo instead.</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>depth_length_brm<span class="sc">$</span>criteria</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$waic
-
-Computed from 2000 by 68 log-likelihood matrix.
-
-          Estimate   SE
-elpd_waic    -89.2  6.8
-p_waic         3.6  1.7
-waic         178.4 13.5
-
-1 (1.5%) p_waic estimates greater than 0.4. We recommend trying loo instead. 
-
-$loo
-
-Computed from 2000 by 68 log-likelihood matrix.
-
-         Estimate   SE
-elpd_loo    -89.2  6.8
-p_loo         3.6  1.7
-looic       178.4 13.5
-------
-MCSE of elpd_loo is 0.1.
-MCSE and ESS estimates assume MCMC draws (r_eff in [0.7, 1.0]).
-
-All Pareto k estimates are good (k &lt; 0.7).
-See help('pareto-k-diagnostic') for details.</code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>abund_species_interaction_brm_predictions <span class="ot">&lt;-</span> complete_annual <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_epred_draws</span>(abund_species_interaction_brm, <span class="at">ndraws =</span> <span class="dv">50</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(abund_species_interaction_brm_predictions, <span class="fu">aes</span>(year, n, <span class="at">color =</span> species_id, <span class="at">fill =</span> species_id)) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_lineribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> .epred), <span class="at">alpha =</span> .<span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
